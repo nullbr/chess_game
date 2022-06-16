@@ -2,8 +2,11 @@
 
 # pawn class to treat each pawn as a node
 class Pawn
+  attr_reader :unicode
+  
   def initialize(type, position, board_class)
     @type = type
+    @unicode = @type == :black ? '♟' : '♙'
     @position = position
     @board = board_class
     @initial_pos = position
