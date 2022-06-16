@@ -13,7 +13,8 @@ class Board
 
   def to_s
     8.times do |row|
-      print "#{8 - row} "
+      row = 7 - row
+      print "#{row + 1} "
       8.times do |column|
         block = @grid[row][column].nil? ? '   ' : " #{@grid[row][column].unicode} "
         if row.even?

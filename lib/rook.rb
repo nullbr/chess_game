@@ -4,6 +4,7 @@
 class Rook
   def initialize(type, position, board_class)
     @type = type
+    @unicode =  @type == :black ? '♜' : '♖'
     @position = position
     @board = board_class
   end
