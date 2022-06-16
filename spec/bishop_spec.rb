@@ -7,12 +7,12 @@ RSpec.describe Bishop do
       board = Board.new
       it 'returns the possible moves of a white bishop' do
         bishop = Bishop.new(:white, [5, 5], board)
-        expect(bishop.Bishop_moves.size).to eq(14)
+        expect(bishop.bishop_moves.size).to eq(11)
       end
 
       it 'returns the possible moves of a black Bishop' do
         bishop = Bishop.new(:black, [0, 0], board)
-        expect(bishop.bishop_moves.size).to eq(14)
+        expect(bishop.bishop_moves.size).to eq(7)
       end
     end
 
