@@ -2,8 +2,11 @@
 
 # queen class to treat each queen as a node
 class Queen
+  attr_reader :unicode
+  
   def initialize(type, position, board_class)
     @type = type
+    @unicode = @unicode = @type == :black ? '♛' : '♕'
     @position = position
     @board = board_class
   end

@@ -2,8 +2,11 @@
 
 # knight class to treat each knight as a node
 class Knight
+  attr_reader :unicode
+  
   def initialize(type, position, board_class)
     @type = type
+    @unicode = @unicode = @type == :black ? '♞' : '♘'
     @position = position
     @board = board_class
   end

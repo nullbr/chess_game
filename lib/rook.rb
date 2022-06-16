@@ -2,6 +2,8 @@
 
 # rook class to treat each rook as a node
 class Rook
+  attr_reader :unicode
+
   def initialize(type, position, board_class)
     @type = type
     @unicode =  @type == :black ? '♜' : '♖'
