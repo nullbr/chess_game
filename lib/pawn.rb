@@ -10,6 +10,7 @@ class Pawn
     @first_move = false
   end
 
+  # takes a position as an array and returns the new position
   def position(array)
     @first_move = @position == @initial_pos
     @position = array
