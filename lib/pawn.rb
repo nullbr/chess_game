@@ -2,13 +2,17 @@
 
 # pawn class to treat each pawn as a node
 class Pawn
-  attr_accessor :position
-
   def initialize(type, position, board_class)
     @type = type
     @position = position
     @board = board_class
-    @first_postion = position
+    @initial_pos = position
+    @first_move = false
+  end
+
+  def position(array)
+    @first_move = @position == @initial_pos
+    @position = array
   end
 
   def pawn_moves
@@ -24,19 +28,30 @@ class Pawn
     moves
   end
 
+  # returns true if pawn has reached the end of the board
   def promoted?
     @position[0].zero? && @type == :black || @position[0] == 7 && @type == :white
+  end
+
+  # returns true if the pawn is 'in passing'
+  # special rule that allows it to be captured by another pawn
+  def en_passant?
+    @first_move &&
+      @type == :black && (@position[0] + 2) == @initial_pos[0] ||
+      @type == :white && (@position[0] - 2) == @initial_pos[0]
   end
 
   private
 
   def possible_directions
-    if @type == :black && @first_postion == @position
-      [[-1, 0], [-2, 0]]
+    if @position == @initial_pos
+      if @type == :black
+        [[-1, 0], [-2, 0]]
+      else
+        [[1, 0], [2, 0]]
+      end
     elsif @type == :black
       [[-1, 0]]
-    elsif @type == :white && @first_postion == @position
-      [[1, 0], [2, 0]]
     else
       [[1, 0]]
     end
