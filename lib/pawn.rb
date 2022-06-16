@@ -24,6 +24,10 @@ class Pawn
     moves
   end
 
+  def promoted?
+    @position[0].zero? && @type == :black || @position[0] == 7 && @type == :white
+  end
+
   private
 
   def possible_directions

@@ -38,4 +38,34 @@ RSpec.describe Pawn do
       expect(pawn.pawn_moves).to eq([])
     end
   end
+
+  describe '#promoted?' do
+    context 'white pawn' do
+      it 'returns false if pawn has not reached the end of the board' do
+        board = Board.new
+        pawn = Pawn.new(:black, [1, 5], board)
+        expect(pawn.pawn_moves).to_not be_truthy
+      end
+
+      it 'returns true if pawn has not reached the end of the board' do
+        board = Board.new
+        pawn = Pawn.new(:black, [0, 5], board)
+        expect(pawn.pawn_moves).to be_truthy
+      end
+    end
+
+    context 'black pawn' do
+      it 'returns false if pawn has not reached the end of the board' do
+        board = Board.new
+        pawn = Pawn.new(:white, [5, 4], board)
+        expect(pawn.pawn_moves).to be_truthy
+      end
+
+      it 'returns true if pawn has reached the end of the board' do
+        board = Board.new
+        pawn = Pawn.new(:white, [7, 4], board)
+        expect(pawn.pawn_moves).to be_truthy
+      end
+    end
+  end
 end
