@@ -1,18 +1,18 @@
 require './lib/knight'
 require './lib/board'
 
-RSpec.describe Pawn do
-  describe '#pawn_moves' do
+RSpec.describe Knight do
+  describe '#knight_moves' do
     context 'board is empty:' do
       board = Board.new
-      it 'returns the possible moves of a white pawn' do
-        pawn = knight.new(:white, [5, 5], board)
-        expect(pawn.pawn_moves).to eq([[6, 5], [7, 5], [4, 5], [3, 5]])
+      it 'returns the possible moves of a white knight' do
+        knight = Knight.new(:white, [5, 5], board)
+        expect(knight.knight_moves).to eq([[4, 7], [6, 7], [4, 3], [6, 3], [3, 4], [3, 6], [7, 4], [7, 6]])
       end
 
-      it 'returns the possible moves of a black pawn' do
-        pawn = knight.new(:black, [5, 5], board)
-        expect(pawn.pawn_moves).to eq([[6, 5], [7, 5], [4, 5], [3, 5]])
+      it 'returns the possible moves of a black knight' do
+        knight = Knight.new(:black, [5, 5], board)
+        expect(knight.knight_moves).to eq([[4, 7], [6, 7], [4, 3], [6, 3], [3, 4], [3, 6], [7, 4], [7, 6]])
       end
     end
   end
