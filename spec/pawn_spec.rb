@@ -11,8 +11,8 @@ RSpec.describe Pawn do
       end
 
       it 'returns the possible moves of a black pawn' do
-        pawn = Pawn.new(:black, [5, 5], board)
-        expect(pawn.pawn_moves).to eq([[6, 5], [7, 5], [4, 5], [3, 5]])
+        pawn = Pawn.new(:black, [0, 0], board)
+        expect(pawn.pawn_moves).to eq([[1, 0], [2, 0]])
       end
     end
   end

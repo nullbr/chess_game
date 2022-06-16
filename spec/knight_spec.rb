@@ -11,8 +11,8 @@ RSpec.describe Knight do
       end
 
       it 'returns the possible moves of a black knight' do
-        knight = Knight.new(:black, [5, 5], board)
-        expect(knight.knight_moves).to eq([[4, 7], [6, 7], [4, 3], [6, 3], [3, 4], [3, 6], [7, 4], [7, 6]])
+        knight = Knight.new(:black, [0, 0], board)
+        expect(knight.knight_moves).to eq([[1, 2], [2, 1]])
       end
     end
   end
