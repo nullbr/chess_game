@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'board'
-
 # pawn class to treat each pawn as a node
 class Pawn
   def initialize(type, position, board_class)
