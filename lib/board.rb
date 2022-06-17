@@ -24,10 +24,19 @@ class Board
     8.times do |row|
       row = 7 - row
       print "#{row + 1} "
+      @grid.each_with_index do |line, row|
+        row.each_with_index do |block, column|
+          
+        end
+      end
       8.times do |column|
-        block = @grid[row][column].nil? ? '   ' : " #{@grid[row][column].unicode} "
-        if row.even?
-          print column.even? ? block.black.on_light_white : block.white.on_light_black
+        piece = @grid[row][column]
+        # block = @grid[row][column].nil? ? '   ' : " #{@grid[row][column].unicode} "
+        if row.even? 
+          if column.even?
+            print block.black.on_light_white
+          end
+          # print column.even? ? block.black.on_light_white : block.white.on_light_black
         else
           print column.odd? ? block.black.on_light_white : block.white.on_light_black
         end
