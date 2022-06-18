@@ -3,7 +3,7 @@
 # knight class to treat each knight as a node
 class Knight
   attr_reader :unicode
-  
+
   def initialize(type, position, board_class)
     @type = type
     @unicode = @unicode = @type == :black ? '♞' : '♘'
@@ -11,8 +11,8 @@ class Knight
     @board = board_class
   end
 
-  def knight_moves
-    directions = [[-1, 2], [1, 2], [-1, -2], [1, -2], [-2, -1], [-2, 1], [2, -1], [2, 1]]
+  def moves
+    directions = possible_directions
     moves = []
     directions.each do |direction|
       y = @position[0] + direction[0]
@@ -20,5 +20,11 @@ class Knight
       moves << [y, x] if y.between?(0, 7) && x.between?(0, 7)
     end
     moves
+  end
+
+  private
+
+  def possible_directions
+    [[-1, 2], [1, 2], [-1, -2], [1, -2], [-2, -1], [-2, 1], [2, -1], [2, 1]]
   end
 end

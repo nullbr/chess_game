@@ -19,7 +19,7 @@ class Pawn
     @position = array
   end
 
-  def pawn_moves
+  def moves
     directions = possible_directions
     moves = []
     directions.each do |direction|

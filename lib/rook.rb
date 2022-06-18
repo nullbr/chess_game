@@ -11,9 +11,9 @@ class Rook
     @board = board_class
   end
 
-  def rook_moves
+  def moves
     moves = []
-    directions = [[-1, 0], [0, -1], [1, 0], [0, 1]]
+    directions = possible_directions
     directions.each do |direction|
       y = @position[0] + direction[0]
       x = @position[1] + direction[1]
@@ -29,5 +29,11 @@ class Rook
       end
     end
     moves
+  end
+
+  private
+
+  def possible_directions
+    [[-1, 0], [0, -1], [1, 0], [0, 1]]
   end
 end

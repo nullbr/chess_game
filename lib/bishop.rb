@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
+require_relative 'pieces'
+
 # bishop class to treat each bishop as a node
-class Bishop
+class Bishop < Pieces
   attr_reader :unicode
   
   def initialize(type, position, board_class)
-    @type = type
+    super(type, position, board_class)
     @unicode = @unicode = @type == :black ? '♝' : '♗'
-    @position = position
-    @board = board_class
   end
 
-  def bishop_moves
+  def moves
     moves = []
-    directions = [[-1, -1], [1, 1], [1, -1], [-1, 1]]
+    directions = possible_directions
     directions.each do |direction|
       y = @position[0] + direction[0]
       x = @position[1] + direction[1]
@@ -29,5 +29,11 @@ class Bishop
       end
     end
     moves
+  end
+
+  private
+
+  def possible_directions
+    [[-1, -1], [1, 1], [1, -1], [-1, 1]]
   end
 end

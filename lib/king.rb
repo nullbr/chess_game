@@ -11,8 +11,8 @@ class King
     @board = board_class
   end
 
-  def king_moves
-    directions = [[-1, -1], [-1, 0], [-1, 1], [1, -1], [1, 0], [1, 1], [0, -1], [0, 1]]
+  def moves
+    directions = possible_directions
     moves = []
     directions.each do |direction|
       y = @position[0] + direction[0]
@@ -20,5 +20,11 @@ class King
       moves << [y, x] if y.between?(0, 7) && x.between?(0, 7)
     end
     moves
+  end
+
+  private
+
+  def possible_directions
+    [[-1, -1], [-1, 0], [-1, 1], [1, -1], [1, 0], [1, 1], [0, -1], [0, 1]]
   end
 end
