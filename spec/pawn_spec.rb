@@ -12,7 +12,7 @@ RSpec.describe Pawn do
       end
 
       it 'second move' do
-        pawn.position([4, 2])
+        pawn.position(2, 4)
         expect(pawn.moves).to eq([[5, 2]])
       end
     end
@@ -26,7 +26,7 @@ RSpec.describe Pawn do
       end
 
       it 'second move' do
-        pawn.position([4, 2])
+        pawn.position(2, 4)
         expect(pawn.moves).to eq([[3, 2]])
       end
     end
@@ -74,14 +74,14 @@ RSpec.describe Pawn do
       it "moves up two squares in it's first move" do
         board = Board.new('bruno', 'giu', true)
         pawn = Pawn.new(:white, [2, 4], board)
-        pawn.position([4, 4])
+        pawn.position(4, 4)
         expect(pawn.en_passant?).to be_truthy
       end
 
       it "moves up one square in it's first move" do
         board = Board.new('bruno', 'giu', true)
         pawn = Pawn.new(:white, [2, 4], board)
-        pawn.position([3, 4])
+        pawn.position(3, 4)
         expect(pawn.en_passant?).to_not be_truthy
       end
     end

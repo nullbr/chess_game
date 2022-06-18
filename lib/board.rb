@@ -12,9 +12,9 @@ require_relative 'pawn'
 class Board
   attr_accessor :grid
 
-  def initialize(player1, player2 = nil, clean = false)
-    @player1 = player1
-    @pleyer2 = player2
+  def initialize(player1, player2 = 'Computer', clean = false)
+    @player1 = { name: player1, pieces: :white }
+    @player2 = { name: player2, pieces: :black }
     @grid = []
     8.times { @grid << [nil, nil, nil, nil, nil, nil, nil, nil] }
     set_initial_positions unless clean
