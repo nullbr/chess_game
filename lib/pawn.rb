@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
+require_relative 'pieces'
+
 # pawn class to treat each pawn as a node
-class Pawn
+class Pawn < Pieces
   attr_reader :unicode
-  
+
   def initialize(type, position, board_class)
-    @type = type
-    @unicode = @type == :black ? '♟' : '♙'
-    @position = position
-    @board = board_class
+    super(type, position, board_class)
+    @unicode = type == :black ? '♟' : '♙'
     @initial_pos = position
     @first_move = false
   end

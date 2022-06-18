@@ -1,25 +1,14 @@
 # frozen_string_literal: true
 
+require_relative 'pieces'
+
 # knight class to treat each knight as a node
-class Knight
+class Knight < Pieces
   attr_reader :unicode
 
   def initialize(type, position, board_class)
-    @type = type
-    @unicode = @unicode = @type == :black ? '♞' : '♘'
-    @position = position
-    @board = board_class
-  end
-
-  def moves
-    directions = possible_directions
-    moves = []
-    directions.each do |direction|
-      y = @position[0] + direction[0]
-      x = @position[1] + direction[1]
-      moves << [y, x] if y.between?(0, 7) && x.between?(0, 7)
-    end
-    moves
+    super(type, position, board_class)
+    @unicode = type == :black ? '♞' : '♘'
   end
 
   private
