@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
+require_relative 'pieces'
+
 # rook class to treat each rook as a node
-class Rook
+class Rook < Pieces
   attr_reader :unicode
 
   def initialize(type, position, board_class)
-    @type = type
+    super(type, position, board_class)
     @unicode =  @type == :black ? '♜' : '♖'
-    @position = position
-    @board = board_class
   end
 
   def moves
@@ -17,13 +17,11 @@ class Rook
     directions.each do |direction|
       y = @position[0] + direction[0]
       x = @position[1] + direction[1]
-      unless @board.grid[y][x].nil?
-        moves << [y, x]
-        next
-      end
 
       while y.between?(0, 7) && x.between?(0, 7)
         moves << [y, x]
+        break unless @board.grid[y][x].nil?
+
         y += direction[0]
         x += direction[1]
       end
