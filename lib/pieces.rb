@@ -1,4 +1,6 @@
 class Pieces
+  attr_reader :unicode
+
   def initialize(type, position, board_class)
     @type = type
     @position = position

@@ -4,8 +4,6 @@ require_relative 'pieces'
 
 # pawn class to treat each pawn as a node
 class Pawn < Pieces
-  attr_reader :unicode
-
   def initialize(type, position, board_class)
     super(type, position, board_class)
     @unicode = type == :black ? '♟' : '♙'

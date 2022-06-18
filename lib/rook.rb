@@ -4,8 +4,6 @@ require_relative 'pieces'
 
 # rook class to treat each rook as a node
 class Rook < Pieces
-  attr_reader :unicode
-
   def initialize(type, position, board_class)
     super(type, position, board_class)
     @unicode =  @type == :black ? '♜' : '♖'

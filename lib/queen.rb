@@ -4,8 +4,6 @@ require_relative 'pieces'
 
 # queen class to treat each queen as a node
 class Queen < Pieces
-  attr_reader :unicode
-  
   def initialize(type, position, board_class)
     super(type, position, board_class)
     @unicode = type == :black ? '♛' : '♕'

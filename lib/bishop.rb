@@ -4,8 +4,6 @@ require_relative 'pieces'
 
 # bishop class to treat each bishop as a node
 class Bishop < Pieces
-  attr_reader :unicode
-
   def initialize(type, position, board_class)
     super(type, position, board_class)
     @unicode = @unicode = @type == :black ? '♝' : '♗'
