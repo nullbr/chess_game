@@ -7,6 +7,7 @@ class Bishop < Pieces
   def initialize(type, position, board_class)
     super(type, position, board_class)
     @unicode = @unicode = @type == :black ? '♝' : '♗'
+    @notation = 'B'
   end
 
   def moves

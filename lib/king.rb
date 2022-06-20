@@ -7,6 +7,7 @@ class King < Pieces
   def initialize(type, position, board_class)
     super(type, position, board_class)
     @unicode = type == :black ? '♚' : '♔'
+    @notation = 'K'
   end
 
   private

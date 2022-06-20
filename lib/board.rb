@@ -16,6 +16,7 @@ class Board
     @player1 = { name: player1, pieces: :white }
     @player2 = { name: player2, pieces: :black }
     @grid = []
+    @pieces = []
     8.times { @grid << [nil, nil, nil, nil, nil, nil, nil, nil] }
     set_initial_positions unless clean
   end
@@ -37,46 +38,54 @@ class Board
     puts '   a  b  c  d  e  f  g  h'
   end
 
+  def refresh_grid
+    @pieces.each do |piece|
+      pos = piece.position
+      @grid[pos[1]][pos[0]] = piece
+    end
+  end
+
   private
 
   def set_initial_positions
     pawns && rooks && queens && kings && knights && bishops
+    refresh_grid
   end
 
   def pawns
-    8.times { |n| @grid[1][n] = Pawn.new(:white, [2, n], self) }
-    8.times { |n| @grid[6][n] = Pawn.new(:black, [6, n], self) }
+    8.times { |n| @pieces << Pawn.new(:white, [2, n], self) }
+    8.times { |n| @pieces << Pawn.new(:black, [6, n], self) }
   end
 
   def rooks
-    @grid[0][0] = Rook.new(:white, [0, 0], self)
-    @grid[0][7] = Rook.new(:white, [0, 7], self)
-    @grid[7][0] = Rook.new(:black, [7, 0], self)
-    @grid[7][7] = Rook.new(:black, [7, 7], self)
+    @pieces << Rook.new(:white, [0, 0], self)
+    @pieces << Rook.new(:white, [0, 7], self)
+    @pieces << Rook.new(:black, [7, 0], self)
+    @pieces << Rook.new(:black, [7, 7], self)
   end
 
   def queens
-    @grid[0][3] = Queen.new(:white, [0, 3], self)
-    @grid[7][3] = Queen.new(:black, [7, 3], self)
+    @pieces << Queen.new(:white, [0, 3], self)
+    @pieces << Queen.new(:black, [7, 3], self)
   end
 
   def kings
-    @grid[0][4] = King.new(:white, [0, 4], self)
-    @grid[7][4] = King.new(:black, [7, 4], self)
+    @pieces << King.new(:white, [0, 4], self)
+    @pieces << King.new(:black, [7, 4], self)
   end
 
   def knights
-    @grid[0][1] = Knight.new(:white, [0, 1], self)
-    @grid[0][6] = Knight.new(:white, [0, 6], self)
-    @grid[7][1] = Knight.new(:black, [7, 1], self)
-    @grid[7][6] = Knight.new(:black, [7, 6], self)
+    @pieces << Knight.new(:white, [0, 1], self)
+    @pieces << Knight.new(:white, [0, 6], self)
+    @pieces << Knight.new(:black, [7, 1], self)
+    @pieces << Knight.new(:black, [7, 6], self)
   end
 
   def bishops
-    @grid[0][2] = Bishop.new(:white, [0, 2], self)
-    @grid[0][5] = Bishop.new(:white, [0, 5], self)
-    @grid[7][2] = Bishop.new(:black, [7, 2], self)
-    @grid[7][5] = Bishop.new(:black, [7, 5], self)
+    @pieces << Bishop.new(:white, [0, 2], self)
+    @pieces << Bishop.new(:white, [0, 5], self)
+    @pieces << Bishop.new(:black, [7, 2], self)
+    @pieces << Bishop.new(:black, [7, 5], self)
   end
 end
 

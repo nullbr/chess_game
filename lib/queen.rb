@@ -7,6 +7,7 @@ class Queen < Pieces
   def initialize(type, position, board_class)
     super(type, position, board_class)
     @unicode = type == :black ? '♛' : '♕'
+    @notation = 'Q'
   end
 
   def moves

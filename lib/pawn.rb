@@ -12,6 +12,7 @@ class Pawn < Pieces
     @initial_pos = position
     @first_move = true
     @en_passant = false
+    @notation = 'P'
   end
 
   def moves
