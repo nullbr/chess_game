@@ -18,7 +18,7 @@ class Bishop < Pieces
       x = @position[1] + direction[1]
 
       while y.between?(0, 7) && x.between?(0, 7)
-        moves << [y, x]
+        moves << grid[y][x].nil? ? [y, x, 0] : [y, x, 1] # add legal move to moves, 0 represent not capturing
         break unless grid[y][x].nil?
 
         y += direction[0]

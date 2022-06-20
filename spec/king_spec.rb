@@ -7,12 +7,12 @@ RSpec.describe King do
       board = Board.new('bruno', 'giu', true)
       it 'returns the possible moves of a white king' do
         king = King.new(:white, [5, 5])
-        expect(king.moves(board.grid)).to eq([[4, 4], [4, 5], [4, 6], [6, 4], [6, 5], [6, 6], [5, 4], [5, 6]])
+        expect(king.moves(board.grid).size).to eq(8)
       end
 
       it 'returns the possible moves of a black king' do
         king = King.new(:black, [0, 0])
-        expect(king.moves(board.grid)).to eq([[1, 0], [1, 1], [0, 1]])
+        expect(king.moves(board.grid).size).to eq(3)
       end
     end
   end

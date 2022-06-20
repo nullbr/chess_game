@@ -7,14 +7,21 @@ RSpec.describe Pawn do
     context 'returns the possible moves of a white pawn:' do
       board = Board.new('bruno', 'giu', true)
       pawn = Pawn.new(:white, [2, 2])
-
       it 'first move' do
-        expect(pawn.moves(board.grid)).to eq([[3, 2], [4, 2]])
+        expect(pawn.moves(board.grid).size).to eq(2)
       end
 
       it 'second move' do
         pawn.position(2, 4)
-        expect(pawn.moves(board.grid)).to eq([[5, 2]])
+        expect(pawn.moves(board.grid).size).to eq(1)
+      end
+
+      it 'diagonal move if it can capture' do
+        game = Chess.new('bruno', 'giu')
+        game.move_piece('a4')
+        game.move_piece('b5')
+        pawn = game.grid[3][0]
+        expect(pawn.moves(game.grid).size).to eq(2)
       end
     end
 
@@ -23,12 +30,12 @@ RSpec.describe Pawn do
       pawn = Pawn.new(:black, [6, 2])
 
       it 'first move' do
-        expect(pawn.moves(board.grid)).to eq([[5, 2], [4, 2]])
+        expect(pawn.moves(board.grid).size).to eq(2)
       end
 
       it 'second move' do
         pawn.position(2, 4)
-        expect(pawn.moves(board.grid)).to eq([[3, 2]])
+        expect(pawn.moves(board.grid).size).to eq(1)
       end
     end
 

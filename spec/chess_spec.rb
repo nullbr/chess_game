@@ -20,6 +20,7 @@ RSpec.describe Chess do
       it 'black knight to f6' do
         knight = game.grid[7][6]
         game.move_piece('Nf6')
+        game.to_s
         expect(game.grid[5][5]).to eq(knight)
       end
     end

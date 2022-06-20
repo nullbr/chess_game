@@ -45,7 +45,7 @@ class Chess < Board
   def get_piece(x_dest, y_dest, notation)
     get = nil
     @pieces.each do |piece|
-      next unless piece.notation == notation && piece.moves(@grid).include?([y_dest, x_dest])
+      next unless piece.notation == notation && piece.moves(@grid).include?([y_dest, x_dest, (0 || 1)])
 
       check_pawn(piece, y_dest) if piece.notation == 'P'
       get = piece
@@ -66,5 +66,5 @@ class Chess < Board
 end
 
 game = Chess.new('bruno')
-game.move_piece('c3')
+game.move_piece('Nf6')
 game.to_s
