@@ -15,7 +15,7 @@ class Pieces
     @position = x.nil? ? @position : [y, x]
   end
 
-  def moves
+  def moves(_grid)
     directions = possible_directions
     moves = []
     directions.each do |direction|

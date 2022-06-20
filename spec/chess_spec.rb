@@ -19,8 +19,19 @@ RSpec.describe Chess do
 
       it 'black knight to f6' do
         knight = game.grid[7][6]
-        game.move_piece('Kf6')
-        expect(game.grid[4][6]).to eq(knight)
+        game.move_piece('Nf6')
+        expect(game.grid[5][5]).to eq(knight)
+      end
+    end
+
+    context 'returns true if it can make a move, false otherwise:' do
+      game = Chess.new('bruno', 'giu')
+      it 'king to d6' do
+        expect(game.move_piece('Kd6')).to be_falsey
+      end
+
+      it 'king to d6' do
+        expect(game.move_piece('e4')).to be_truthy
       end
     end
   end

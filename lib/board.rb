@@ -41,7 +41,7 @@ class Board
   def refresh_grid
     @pieces.each do |piece|
       pos = piece.position
-      @grid[pos[1]][pos[0]] = piece
+      @grid[pos[0]][pos[1]] = piece
     end
   end
 
@@ -53,7 +53,7 @@ class Board
   end
 
   def pawns
-    8.times { |n| @pieces << Pawn.new(:white, [2, n]) }
+    8.times { |n| @pieces << Pawn.new(:white, [1, n]) }
     8.times { |n| @pieces << Pawn.new(:black, [6, n]) }
   end
 
@@ -89,6 +89,6 @@ class Board
   end
 end
 
-# board = Board.new
+# board = Board.new('bruno')
 
 # board.to_s

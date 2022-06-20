@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'board'
+require 'pry'
 
 # main driver class frot the chess game
 class Chess < Board
@@ -10,19 +11,20 @@ class Chess < Board
   end
 
   def move_piece(dest)
+    x_dest = dest[-2].ord - 97
+    y_dest = dest[-1].to_i - 1
     if dest.size == 2
-      x_dest = dest[0].ord - 97
-      y_dest = dest[1].to_i - 1
-      piece = get_pawn(x_dest, y_dest)
+      notation = 'P'
     elsif dest.size == 3
       notation = dest[0]
-      x_dest = dest[1].ord - 97
-      y_dest = dest[2].to_i - 1
-      piece = get_piece(x_dest, y_dest, notation)
     end
+
+    piece = get_piece(x_dest, y_dest, notation)
+    return false if piece.nil?
 
     move_to(x_dest, y_dest, piece)
     next_player
+    true
   end
 
   private
@@ -41,22 +43,25 @@ class Chess < Board
   end
 
   def get_piece(x_dest, y_dest, notation)
+    get = nil
     @pieces.each do |piece|
-      return piece if piece.notation == notation && piece.moves.include?([y_dest, x_dest])
+      next unless piece.notation == notation && piece.moves(@grid).include?([y_dest, x_dest])
+
+      check_pawn(piece, y_dest) if piece.notation == 'P'
+      get = piece
+      break
     end
+    get
   end
 
-  def get_pawn(x_dest, y_dest)
-    if @current_player[:pieces] == :white
-      pawn = @grid[1][x_dest]
-      pawn.en_passant = (pawn.first_move && y_dest == 3) ? true : false 
-    else
-      pawn = @grid[6][x_dest]
-      pawn.en_passant = (pawn.first_move && y_dest == 4) ? true : false
-    end
+  def check_pawn(pawn, y_dest)
+    pawn.en_passant = if @current_player[:pieces] == :white
+                        pawn.first_move && y_dest == 3 ? true : false
+                      else
+                        pawn.first_move && y_dest == 4 ? true : false
+                      end
 
     pawn.first_move = false
-    pawn
   end
 end
 
