@@ -6,13 +6,13 @@ RSpec.describe Rook do
     context 'board is empty:' do
       board = Board.new('bruno', 'giu', true)
       it 'returns the possible moves of a white rook' do
-        rook = Rook.new(:white, [5, 5], board)
-        expect(rook.moves.size).to eq(14)
+        rook = Rook.new(:white, [5, 5])
+        expect(rook.moves(board.grid).size).to eq(14)
       end
 
       it 'returns the possible moves of a black rook' do
-        rook = Rook.new(:black, [0, 0], board)
-        expect(rook.moves.size).to eq(14)
+        rook = Rook.new(:black, [0, 0])
+        expect(rook.moves(board.grid).size).to eq(14)
       end
     end
 
@@ -21,8 +21,8 @@ RSpec.describe Rook do
         board = Board.new('bruno', 'giu', true)
         spots = [[4, 5], [5, 4], [6, 5], [5, 6]]
         spots.each { |yx| board.grid[yx[0]][yx[1]] = 'i' }
-        rook = Rook.new(:white, [5, 5], board)
-        expect(rook.moves.size).to eq(4)
+        rook = Rook.new(:white, [5, 5])
+        expect(rook.moves(board.grid).size).to eq(4)
       end
     end
   end

@@ -4,13 +4,13 @@ require_relative 'pieces'
 
 # rook class to treat each rook as a node
 class Rook < Pieces
-  def initialize(type, position, board_class)
-    super(type, position, board_class)
+  def initialize(type, position)
+    super(type, position)
     @unicode =  @type == :black ? '♜' : '♖'
     @notation = 'R'
   end
 
-  def moves
+  def moves(grid)
     moves = []
     directions = possible_directions
     directions.each do |direction|
@@ -19,7 +19,7 @@ class Rook < Pieces
 
       while y.between?(0, 7) && x.between?(0, 7)
         moves << [y, x]
-        break unless @board.grid[y][x].nil?
+        break unless grid[y][x].nil?
 
         y += direction[0]
         x += direction[1]

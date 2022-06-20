@@ -5,9 +5,9 @@ require_relative 'pieces'
 # pawn class to treat each pawn as a node
 class Pawn < Pieces
   attr_accessor :first_move, :en_passant, :type
-  
-  def initialize(type, position, board_class)
-    super(type, position, board_class)
+
+  def initialize(type, position)
+    super(type, position)
     @unicode = type == :black ? '♟' : '♙'
     @initial_pos = position
     @first_move = true
@@ -15,13 +15,13 @@ class Pawn < Pieces
     @notation = 'P'
   end
 
-  def moves
+  def moves(grid)
     directions = possible_directions
     moves = []
     directions.each do |direction|
       y = @position[0] + direction[0]
       x = @position[1] + direction[1]
-      break unless @board.grid[y][x].nil?
+      break unless grid[y][x].nil?
 
       moves << [y, x] if y.between?(0, 7) && x.between?(0, 7)
     end

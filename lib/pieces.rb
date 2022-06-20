@@ -1,11 +1,12 @@
 class Pieces
   attr_reader :unicode, :capturing
+  attr_accessor :notation
 
-  def initialize(type, position, board_class)
+  def initialize(type, position)
     @type = type
     @position = position
-    @board = board_class
     @capturing = []
+    @notation = nil
   end
 
   # takes a position as an array and returns the new position

@@ -4,8 +4,8 @@ require_relative 'pieces'
 
 # king class to treat each king as a node
 class King < Pieces
-  def initialize(type, position, board_class)
-    super(type, position, board_class)
+  def initialize(type, position)
+    super(type, position)
     @unicode = type == :black ? '♚' : '♔'
     @notation = 'K'
   end

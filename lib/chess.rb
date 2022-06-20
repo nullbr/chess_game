@@ -14,6 +14,11 @@ class Chess < Board
       x_dest = dest[0].ord - 97
       y_dest = dest[1].to_i - 1
       piece = get_pawn(x_dest, y_dest)
+    elsif dest.size == 3
+      notation = dest[0]
+      x_dest = dest[1].ord - 97
+      y_dest = dest[2].to_i - 1
+      piece = get_piece(x_dest, y_dest, notation)
     end
 
     move_to(x_dest, y_dest, piece)
@@ -33,6 +38,12 @@ class Chess < Board
     @grid[y_origin][x_origin] = nil
     piece.position(x_dest, y_dest)
     @grid[y_dest][x_dest] = piece
+  end
+
+  def get_piece(x_dest, y_dest, notation)
+    @pieces.each do |piece|
+      return piece if piece.notation == notation && piece.moves.include?([y_dest, x_dest])
+    end
   end
 
   def get_pawn(x_dest, y_dest)

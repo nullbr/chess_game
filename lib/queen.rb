@@ -4,13 +4,13 @@ require_relative 'pieces'
 
 # queen class to treat each queen as a node
 class Queen < Pieces
-  def initialize(type, position, board_class)
-    super(type, position, board_class)
+  def initialize(type, position)
+    super(type, position)
     @unicode = type == :black ? '♛' : '♕'
     @notation = 'Q'
   end
 
-  def moves
+  def moves(grid)
     moves = []
     directions = possible_directions
     directions.each do |direction|
@@ -19,7 +19,7 @@ class Queen < Pieces
 
       while y.between?(0, 7) && x.between?(0, 7)
         moves << [y, x]
-        break unless @board.grid[y][x].nil?
+        break unless grid[y][x].nil?
 
         y += direction[0]
         x += direction[1]
