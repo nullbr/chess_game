@@ -22,5 +22,3 @@ Gems:
 - ruby_figlet
 - colorize
 
-Todays contribución
-Describing great features here
