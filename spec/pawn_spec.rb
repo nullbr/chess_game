@@ -1,5 +1,6 @@
 require './lib/pawn'
 require './lib/board'
+require './lib/chess'
 
 RSpec.describe Pawn do
   describe '#moves' do
@@ -72,17 +73,17 @@ RSpec.describe Pawn do
   describe '#en_passant' do
     context 'white pawn' do
       it "moves up two squares in it's first move" do
-        board = Board.new('bruno', 'giu', true)
-        pawn = Pawn.new(:white, [2, 4], board)
-        pawn.position(4, 4)
-        expect(pawn.en_passant?).to be_truthy
+        game = Chess.new('bruno', 'giu')
+        pawn = game.grid[1][6]
+        game.move_piece('g4')
+        expect(pawn.en_passant).to be_truthy
       end
 
       it "moves up one square in it's first move" do
-        board = Board.new('bruno', 'giu', true)
-        pawn = Pawn.new(:white, [2, 4], board)
-        pawn.position(3, 4)
-        expect(pawn.en_passant?).to_not be_truthy
+        game = Chess.new('bruno', 'giu')
+        pawn = game.grid[1][2]
+        game.move_piece('c3')
+        expect(pawn.en_passant).to_not be_truthy
       end
     end
   end

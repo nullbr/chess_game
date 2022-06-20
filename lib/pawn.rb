@@ -4,11 +4,14 @@ require_relative 'pieces'
 
 # pawn class to treat each pawn as a node
 class Pawn < Pieces
+  attr_accessor :first_move, :en_passant, :type
+  
   def initialize(type, position, board_class)
     super(type, position, board_class)
     @unicode = type == :black ? '♟' : '♙'
     @initial_pos = position
-    @first_move = false
+    @first_move = true
+    @en_passant = false
   end
 
   def moves
@@ -27,14 +30,6 @@ class Pawn < Pieces
   # returns true if pawn has reached the end of the board
   def promoted?
     @position[0].zero? && @type == :black || @position[0] == 7 && @type == :white
-  end
-
-  # returns true if the pawn is 'in passing'
-  # special rule that allows it to be captured by another pawn
-  def en_passant?
-    @first_move &&
-      @type == :black && (@position[0] + 2) == @initial_pos[0] ||
-      @type == :white && (@position[0] - 2) == @initial_pos[0]
   end
 
   private
