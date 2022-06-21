@@ -2,7 +2,7 @@ require './lib/chess'
 
 # Spec for the chess class tests
 RSpec.describe Chess do
-  describe "#move_piece" do
+  describe '#move_piece' do
     context 'move piece to a specified position:' do
       game = Chess.new('bruno', 'giu')
       it 'white pawn to d3' do
@@ -59,15 +59,62 @@ RSpec.describe Chess do
         expect(game.move_piece('Rxa5')).to be_truthy
       end
 
-      it 'pawn capture pawn at a5' do
+      it 'queen capture pawn at a5' do
         game.move_piece('e3')
         game.move_piece('g5')
         game.move_piece('e3')
         game.move_piece('Qg4')
         game.move_piece('d6')
         expect(game.move_piece('Qxc8')).to be_truthy
+      end
+    end
+
+    context 'returns true if a pawn is promoted:' do
+      game = Chess.new('bruno', 'giu')
+      game.move_piece('b4')
+      game.move_piece('a5')
+      game.move_piece('Pxa5')
+      game.move_piece('b5')
+      game.move_piece('a6')
+      game.move_piece('b4')
+      game.move_piece('a7')
+      game.move_piece('b3')
+
+      it 'white pawn promoted at e8' do
+        expect(game.move_piece('axb8=K')).to be_truthy
+      end
+
+      it 'black pawn promoted at b1' do
+        game.move_piece('b2')
+        game.move_piece('Nc3')
+        expect(game.move_piece('b1=R')).to be_truthy
+      end
+
+      it 'try to promote white pawn at e3' do
+        expect(game.move_piece('e3=Q')).to be_falsey
         puts ''
         game.to_s
+      end
+    end
+  end
+
+  describe '#check_input' do
+    context 'analyze input and returns an array with info:' do
+      game = Chess.new('bruno', 'giu')
+      it 'checks exb8=K' do
+        expect(game.process_input('axb8=K')).to eq([1, 7, 'P', 1, King]) # [y_dest, x_dest, notation, capturing, promoting_to]
+      end
+
+      it 'checks b5' do
+        expect(game.process_input('b5')).to eq([1, 4, 'P', 0, nil]) # [y_dest, x_dest, notation, capturing, promoting_to]
+      end
+
+      it 'checks Pxa5' do
+        expect(game.process_input('Qxc6')).to eq([2, 5, 'Q', 1, nil]) # [y_dest, x_dest, notation, capturing, promoting_to]
+      end
+
+      it 'checks Re4' do
+        expect(game.process_input('Re4')).to eq([4, 3, 'R', 0, nil]) # [y_dest, x_dest, notation, capturing, promoting_to]
       end
     end
   end
