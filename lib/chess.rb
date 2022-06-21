@@ -16,11 +16,16 @@ class Chess < Board
     y_dest = dest[-1].to_i - 1
     if dest.size == 2
       notation = 'P'
+      capturing = 0
     elsif dest.size == 3
-      notation = dest[0]
+      notation = dest[0].upcase
+      capturing = 0
+    elsif dest.size == 4 && dest[-3].downcase == 'x'
+      notation = dest[0].upcase
+      capturing = 1
     end
 
-    piece = get_piece(x_dest, y_dest, notation)
+    piece = get_piece(x_dest, y_dest, notation, capturing)
     return false if piece.nil?
 
     move_to(x_dest, y_dest, piece)
@@ -45,11 +50,11 @@ class Chess < Board
     @last_move = [[y_origin, x_origin], [y_dest, x_dest]]
   end
 
-  def get_piece(x_dest, y_dest, notation)
+  def get_piece(x_dest, y_dest, notation, capturing)
     get = nil
     @pieces.each do |piece|
       next unless piece.type == @current_player[:pieces] && piece.notation == notation &&
-                  piece.moves(@grid).include?([y_dest, x_dest, (0 || 1)])
+                  piece.moves(@grid).include?([y_dest, x_dest, capturing])
 
       check_pawn(piece, y_dest) if piece.notation == 'P'
       get = piece
@@ -70,7 +75,7 @@ class Chess < Board
 end
 
 game = Chess.new('bruno')
-game.move_piece('Nf3')
-game.move_piece('Nf6')
-game.move_piece('d3')
+game.move_piece('b4')
+game.move_piece('a5')
+game.move_piece('Pxa5')
 game.to_s

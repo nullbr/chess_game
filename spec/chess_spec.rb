@@ -46,5 +46,29 @@ RSpec.describe Chess do
         expect(game.move_piece('Bc4')).to be_truthy
       end
     end
+
+    context 'returns true if it can capture a piece:' do
+      game = Chess.new('bruno', 'giu')
+      it 'pawn capture pawn at a5' do
+        game.move_piece('b4')
+        game.move_piece('a5')
+        expect(game.move_piece('Pxa5')).to be_truthy
+      end
+
+      it 'rook capture pawn at a8' do
+        expect(game.move_piece('Rxa5')).to be_truthy
+      end
+
+      it 'pawn capture pawn at a5' do
+        game.move_piece('e3')
+        game.move_piece('g5')
+        game.move_piece('e3')
+        game.move_piece('Qg4')
+        game.move_piece('d6')
+        expect(game.move_piece('Qxc8')).to be_truthy
+        puts ''
+        game.to_s
+      end
+    end
   end
 end
