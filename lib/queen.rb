@@ -18,8 +18,13 @@ class Queen < Pieces
       x = @position[1] + direction[1]
 
       while y.between?(0, 7) && x.between?(0, 7)
-        grid[y][x].nil? ? (moves << [y, x, 0]) : (moves << [y, x, 1])
-        break unless grid[y][x].nil?
+        in_location = grid[y][x]
+
+        unless in_location.nil? # add legal move to moves, 1 represent capturing
+          moves << [y, x, 1] unless in_location.type == @type
+          break
+        end
+        moves << [y, x, 0]
 
         y += direction[0]
         x += direction[1]

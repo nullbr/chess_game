@@ -17,12 +17,18 @@ RSpec.describe Queen do
     end
 
     context 'there are pieces in the way:' do
-      it 'returns the possible moves of a white queen' do
-        board = Board.new('bruno', 'giu', true)
-        spots = [[4, 4], [4, 5], [4, 6], [6, 4], [6, 5], [6, 6], [5, 4], [5, 6]]
-        spots.each { |yx| board.grid[yx[0]][yx[1]] = 'i' }
-        queen = Queen.new(:white, [5, 5])
-        expect(queen.moves(board.grid).size).to eq(8)
+      it 'ommit move to where there is a friendly piece' do
+        game = Chess.new('bruno', 'giu')
+        game.move_piece('d4')
+        queen = game.grid[0][3]
+        expect(queen.moves(game.grid).size).to eq(2)
+      end
+
+      it 'ommit move to where there is a friendly piece' do
+        game = Chess.new('bruno', 'giu')
+        game.move_piece('e3')
+        queen = game.grid[0][3]
+        expect(queen.moves(game.grid).size).to eq(4)
       end
     end
   end
