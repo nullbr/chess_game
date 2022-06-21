@@ -47,32 +47,6 @@ RSpec.describe Pawn do
     end
   end
 
-  describe '#promoted?' do
-    context 'white pawn' do
-      it 'returns false if pawn has not reached the end of the board' do
-        pawn = Pawn.new(:black, [1, 5])
-        expect(pawn.promoted?).to_not be_truthy
-      end
-
-      it 'returns true if pawn has not reached the end of the board' do
-        pawn = Pawn.new(:black, [0, 5])
-        expect(pawn.promoted?).to be_truthy
-      end
-    end
-
-    context 'black pawn' do
-      it 'returns false if pawn has not reached the end of the board' do
-        pawn = Pawn.new(:white, [5, 4])
-        expect(pawn.promoted?).to_not be_truthy
-      end
-
-      it 'returns true if pawn has reached the end of the board' do
-        pawn = Pawn.new(:white, [7, 4])
-        expect(pawn.promoted?).to be_truthy
-      end
-    end
-  end
-
   describe '#en_passant' do
     it "moves up two squares in it's first move" do
       game = Chess.new('bruno', 'giu')

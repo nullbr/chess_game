@@ -35,11 +35,6 @@ class Pawn < Pieces
     moves
   end
 
-  # returns true if pawn has reached the end of the board
-  def promoted?
-    @position[0].zero? && @type == :black || @position[0] == 7 && @type == :white
-  end
-
   private
 
   def diagonal
