@@ -27,7 +27,9 @@ class Board
       print "#{row + 1} "
       8.times do |column|
         block = @grid[row][column].nil? ? '   ' : " #{@grid[row][column].unicode} "
-        if row.even?
+        if row == @last_move[0][0] && column == @last_move[0][1] || row == @last_move[1][0] && column == @last_move[1][1]
+          print block.black.on_light_cyan
+        elsif row.even?
           print column.even? ? block.black.on_light_white : block.white.on_light_black
         else
           print column.odd? ? block.black.on_light_white : block.white.on_light_black

@@ -6,7 +6,6 @@ require 'pry'
 # pawn class to treat each pawn as a node
 class Pawn < Pieces
   attr_accessor :first_move, :en_passant
-  attr_reader :type
 
   def initialize(type, position)
     super(type, position)

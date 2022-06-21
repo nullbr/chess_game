@@ -1,5 +1,5 @@
 class Pieces
-  attr_reader :unicode
+  attr_reader :unicode, :type
   attr_accessor :notation
 
   def initialize(type, position)

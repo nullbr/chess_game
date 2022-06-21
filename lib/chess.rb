@@ -8,6 +8,7 @@ class Chess < Board
   def initialize(player1, player2 = nil)
     super(player1, player2)
     @current_player = @player1
+    @last_move = []
   end
 
   def move_piece(dest)
@@ -40,12 +41,15 @@ class Chess < Board
     @grid[y_origin][x_origin] = nil
     piece.position(x_dest, y_dest)
     @grid[y_dest][x_dest] = piece
+
+    @last_move = [[y_origin, x_origin], [y_dest, x_dest]]
   end
 
   def get_piece(x_dest, y_dest, notation)
     get = nil
     @pieces.each do |piece|
-      next unless piece.notation == notation && piece.moves(@grid).include?([y_dest, x_dest, (0 || 1)])
+      next unless piece.type == @current_player[:pieces] && piece.notation == notation &&
+                  piece.moves(@grid).include?([y_dest, x_dest, (0 || 1)])
 
       check_pawn(piece, y_dest) if piece.notation == 'P'
       get = piece
@@ -66,5 +70,7 @@ class Chess < Board
 end
 
 game = Chess.new('bruno')
+game.move_piece('Nf3')
 game.move_piece('Nf6')
+game.move_piece('d3')
 game.to_s
