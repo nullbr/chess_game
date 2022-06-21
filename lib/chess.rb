@@ -51,6 +51,11 @@ class Chess < Board
       next unless piece.type == @current_player[:pieces] && piece.notation == notation &&
                   piece.moves(@grid).include?([y_dest, x_dest, (0 || 1)])
 
+      if notation == 'B'
+        
+        binding.pry
+        
+      end
       check_pawn(piece, y_dest) if piece.notation == 'P'
       get = piece
       break
