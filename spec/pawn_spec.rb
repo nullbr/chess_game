@@ -63,6 +63,15 @@ RSpec.describe Pawn do
     end
 
     it 'can capture pawn that is on the side and is en passant' do
+      game = Chess.new('bruno', 'giu')
+      game.move_piece('b4')
+      game.move_piece('a5')
+      game.move_piece('Pxa5')
+      game.move_piece('b5')
+      game.move_piece('a6')
+      game.move_piece('b4')
+      game.move_piece('a7')
+      game.move_piece('b3')
     end
   end
 end

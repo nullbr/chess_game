@@ -98,23 +98,27 @@ RSpec.describe Chess do
     end
   end
 
-  describe '#check_input' do
+  describe '#process_input' do
     context 'analyze input and returns an array with info:' do
       game = Chess.new('bruno', 'giu')
       it 'checks exb8=K' do
-        expect(game.process_input('axb8=K')).to eq([1, 7, 'P', 1, King]) # [y_dest, x_dest, notation, capturing, promoting_to]
+        expect(game.process_input('axb8=K')).to eq([1, 7, 'P', 1, King, nil]) # [x_dest, y_dest, notation, capturing, promoting_to, x_origin]
       end
 
       it 'checks b5' do
-        expect(game.process_input('b5')).to eq([1, 4, 'P', 0, nil]) # [y_dest, x_dest, notation, capturing, promoting_to]
+        expect(game.process_input('b5')).to eq([1, 4, 'P', 0, nil, nil]) # [x_dest, y_dest, notation, capturing, promoting_to, x_origin]
       end
 
-      it 'checks Pxa5' do
-        expect(game.process_input('Qxc6')).to eq([2, 5, 'Q', 1, nil]) # [y_dest, x_dest, notation, capturing, promoting_to]
+      it 'checks Qxc6' do
+        expect(game.process_input('Qxc6')).to eq([2, 5, 'Q', 1, nil, nil]) # [x_dest, y_dest, notation, capturing, promoting_to, x_origin]
+      end
+
+      it 'checks exf3' do
+        expect(game.process_input('exf3')).to eq([5, 2, 'P', 1, nil, 4]) # [x_dest, y_dest, notation, capturing, promoting_to, x_origin]
       end
 
       it 'checks Re4' do
-        expect(game.process_input('Re4')).to eq([4, 3, 'R', 0, nil]) # [y_dest, x_dest, notation, capturing, promoting_to]
+        expect(game.process_input('Re4')).to eq([4, 3, 'R', 0, nil, nil]) # [x_dest, y_dest, notation, capturing, promoting_to, x_origin]
       end
     end
   end
