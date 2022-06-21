@@ -8,7 +8,7 @@ class Chess < Board
   def initialize(player1, player2 = nil)
     super(player1, player2)
     @current_player = @player1
-    @last_move = []
+    @last_move = nil
   end
 
   def move_piece(dest)
@@ -51,11 +51,6 @@ class Chess < Board
       next unless piece.type == @current_player[:pieces] && piece.notation == notation &&
                   piece.moves(@grid).include?([y_dest, x_dest, (0 || 1)])
 
-      if notation == 'B'
-        
-        binding.pry
-        
-      end
       check_pawn(piece, y_dest) if piece.notation == 'P'
       get = piece
       break

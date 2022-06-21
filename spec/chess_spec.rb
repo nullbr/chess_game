@@ -43,9 +43,9 @@ RSpec.describe Chess do
       end
 
       it 'white bishop to c4' do
+        expect(game.move_piece('Bc4')).to be_truthy
         puts ''
         game.to_s
-        expect(game.move_piece('Bc4')).to be_truthy
       end
     end
   end
