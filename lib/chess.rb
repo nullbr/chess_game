@@ -75,7 +75,4 @@ class Chess < Board
 end
 
 game = Chess.new('bruno')
-game.move_piece('b4')
-game.move_piece('a5')
-game.move_piece('Pxa5')
 game.to_s

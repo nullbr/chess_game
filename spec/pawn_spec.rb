@@ -74,20 +74,21 @@ RSpec.describe Pawn do
   end
 
   describe '#en_passant' do
-    context 'white pawn' do
-      it "moves up two squares in it's first move" do
-        game = Chess.new('bruno', 'giu')
-        pawn = game.grid[1][6]
-        game.move_piece('g4')
-        expect(pawn.en_passant).to be_truthy
-      end
+    it "moves up two squares in it's first move" do
+      game = Chess.new('bruno', 'giu')
+      pawn = game.grid[1][6]
+      game.move_piece('g4')
+      expect(pawn.en_passant).to be_truthy
+    end
 
-      it "moves up one square in it's first move" do
-        game = Chess.new('bruno', 'giu')
-        pawn = game.grid[1][2]
-        game.move_piece('c3')
-        expect(pawn.en_passant).to_not be_truthy
-      end
+    it "moves up one square in it's first move" do
+      game = Chess.new('bruno', 'giu')
+      pawn = game.grid[1][2]
+      game.move_piece('c3')
+      expect(pawn.en_passant).to_not be_truthy
+    end
+
+    it 'can capture pawn that is on the side and is en passant' do
     end
   end
 end
