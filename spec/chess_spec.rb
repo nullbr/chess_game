@@ -92,8 +92,6 @@ RSpec.describe Chess do
 
       it 'try to promote white pawn at e3' do
         expect(game.move_piece('e3=Q')).to be_falsey
-        puts ''
-        game.to_s
       end
     end
   end
