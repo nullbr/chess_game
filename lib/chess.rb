@@ -25,8 +25,8 @@ class Chess < Board
 
   def process_input(input)
     input = input.split('')
-    x = get_coordinates(input, [97, 104]).map { |char| char.ord - 97 } # check for x coordinates
-    y = get_coordinates(input, [48, 57]).map { |char| char.to_i - 1 } # check for y coordinates
+    x = get_x_coordinates(input)
+    y = get_y_coordinates(input)
     notation = piece_class.include?(input[0]) ? input[0] : 'P' # notation
     promoting_to = promoting(input, notation, y[0]) if input.include?('=')
     return unless x.size.between?(1, 2) && y.size.between?(1, 2) && promoting_to != false
@@ -36,8 +36,28 @@ class Chess < Board
 
   private
 
-  def get_coordinates(input, range)
-    input.select { |char| char.ord.between?(range[0], range[1]) }.reverse
+  # takes in the input, gets coodinates info and returns it. Returns empty array if invalid info
+  def get_x_coordinates(input)
+    input = input.map { |char| char.ord - 97 }
+    input = input.select { |char| char.between?(0, 7) }.reverse
+
+    if input.size > 2 && input.any? { |char| char.between?(8, 25) && char != 23 }
+      []
+    else
+      input
+    end
+  end
+
+  # takes in the input, gets coodinates info and returns it. Returns empty array if invalid info
+  def get_y_coordinates(input)
+    input = input.select { |char| char.ord.between?(48, 57) }
+    input = input.map { |char| char.to_i - 1 }.reverse
+
+    if input.size.between?(1, 2) && input.all? { |num| num.between?(0, 7) }
+      input
+    else
+      []
+    end
   end
 
   def promoting(input, notation, y_dest)

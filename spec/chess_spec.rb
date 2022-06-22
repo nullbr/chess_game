@@ -100,27 +100,39 @@ RSpec.describe Chess do
     context 'analyze input and returns an array with info:' do
       game = Chess.new('bruno', 'giu')
       it 'checks axb8=K' do
-        expect(game.process_input('axb8=K')).to eq([1, 7, 'P', true, King, 0]) # [x_dest, y_dest, notation, capturing, promoting_to, y or x_origin]
+        expect(game.process_input('axb8=K')).to eq([1, 7, 'P', true, King, 0, 0]) # [x_dest, y_dest, notation, capturing, promoting_to, y or x_origin, check]
       end
 
       it 'checks b5' do
-        expect(game.process_input('b5')).to eq([1, 4, 'P', false, nil, nil]) # [x_dest, y_dest, notation, capturing, promoting_to, y or x_origin]
+        expect(game.process_input('b5')).to eq([1, 4, 'P', false, nil, nil, 0]) # [x_dest, y_dest, notation, capturing, promoting_to, y or x_origin, check]
       end
 
       it 'checks Qxc6' do
-        expect(game.process_input('Qxc6')).to eq([2, 5, 'Q', true, nil, nil]) # [x_dest, y_dest, notation, capturing, promoting_to, y or x_origin]
+        expect(game.process_input('Qxc6')).to eq([2, 5, 'Q', true, nil, nil, 0]) # [x_dest, y_dest, notation, capturing, promoting_to, y or x_origin, check]
       end
 
       it 'checks exf3' do
-        expect(game.process_input('exf3')).to eq([5, 2, 'P', true, nil, 4]) # [x_dest, y_dest, notation, capturing, promoting_to, y or x_origin]
+        expect(game.process_input('exf3')).to eq([5, 2, 'P', true, nil, 4, 0]) # [x_dest, y_dest, notation, capturing, promoting_to, y or x_origin, check]
       end
 
       it 'checks Re4' do
-        expect(game.process_input('Re4')).to eq([4, 3, 'R', false, nil, nil]) # [x_dest, y_dest, notation, capturing, promoting_to, y or x_origin]
+        expect(game.process_input('Re4')).to eq([4, 3, 'R', false, nil, nil, 0]) # [x_dest, y_dest, notation, capturing, promoting_to, y or x_origin, check]
       end
 
       it 'checks Bcf4' do
-        expect(game.process_input('Bcf4')).to eq([5, 3, 'B', false, nil, 2]) # [x_dest, y_dest, notation, capturing, promoting_to, y or x_origin]
+        expect(game.process_input('Bcf4')).to eq([5, 3, 'B', false, nil, 2, 0]) # [x_dest, y_dest, notation, capturing, promoting_to, y or x_origin, check]
+      end
+
+      it 'process Kxc5 with check' do
+        expect(game.process_input('Kxc5+')).to eq([2, 4, 'K', true, nil, nil, 1]) # [x_dest, y_dest, notation, capturing, promoting_to, y or x_origin, check]
+      end
+
+      it 'Nh3 with check' do
+        expect(game.process_input('Nh3+')).to eq([7, 2, 'N', false, nil, nil, 1]) # [x_dest, y_dest, notation, capturing, promoting_to, y or x_origin, check]
+      end
+
+      it 'Kexf4# with checkmate' do
+        expect(game.process_input('Kexf4#')).to eq([5, 3, 'K', true, nil, 4, 2]) # [x_dest, y_dest, notation, capturing, promoting_to, y or x_origin, check]
       end
     end
   end
