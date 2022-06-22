@@ -21,10 +21,10 @@ class Rook < Pieces
         in_location = grid[y][x]
 
         unless in_location.nil? # add legal move to moves, 1 represent capturing
-          moves << [y, x, 1] unless in_location.type == @type
+          moves << [y, x, true] unless in_location.type == @type
           break
         end
-        moves << [y, x, 0]
+        moves << [y, x, false]
 
         y += direction[0]
         x += direction[1]

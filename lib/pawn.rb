@@ -23,14 +23,14 @@ class Pawn < Pieces
       x = @position[1] + direction[1]
       break unless grid[y][x].nil? && y.between?(0, 7) && x.between?(0, 7)
 
-      moves << [y, x, 0] # add legal move to moves, 0 represent not capturing
+      moves << [y, x, false] # add legal move to moves, 0 represent not capturing
     end
     diagonal.each do |direction|
       y = @position[0] + direction[0]
       x = @position[1] + direction[1]
       next if grid[y][x].nil?
 
-      moves << [y, x, 1] # add legal move to moves, 1 represent capturing
+      moves << [y, x, true] # add legal move to moves, 1 represent capturing
     end
     moves
   end

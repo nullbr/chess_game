@@ -22,7 +22,7 @@ class Pieces
       x = @position[1] + direction[1]
       next unless y.between?(0, 7) && x.between?(0, 7)
 
-      grid[y][x].nil? ? (moves << [y, x, 0]) : (moves << [y, x, 1]) # add legal move to moves, 0 represent not capturing
+      grid[y][x].nil? ? (moves << [y, x, false]) : (moves << [y, x, true]) # add legal move to moves, 0 represent not capturing
     end
     moves
   end

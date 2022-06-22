@@ -24,28 +24,29 @@ class Chess < Board
   end
 
   def process_input(input)
-    promoting_to = nil
-    notation = piece_class.include?(input[0]) ? input[0] : 'P'
+    input = input.split('')
+    x = get_coordinates(input, [97, 104]).map { |char| char.ord - 97 } # check for x coordinates
+    y = get_coordinates(input, [48, 57]).map { |char| char.to_i - 1 } # check for y coordinates
+    notation = piece_class.include?(input[0]) ? input[0] : 'P' # notation
+    promoting_to = promoting(input, notation, y[0]) if input.include?('=')
+    return unless x.size.between?(1, 2) && y.size.between?(1, 2) && promoting_to != false
 
-    if input.include?('=')
-      y_dest = input[-3].to_i - 1
-      if piece_class.include?(input[-1]) && notation == 'P' && (y_dest.zero? || y_dest == 7)
-        promoting_to = piece_class[input[-1]]
-      else
-        return
-      end
-      input = input[0..-3]
-    end
-
-    x_dest = input[-2].ord - 97
-    y_dest = input[-1].to_i - 1
-    capturing = input.include?('x') ? 1 : 0
-    return unless x_dest.between?(0, 7) && y_dest.between?(0, 7)
-
-    [x_dest, y_dest, notation, capturing, promoting_to]
+    [x[0], y[0], notation, input.include?('x'), promoting_to, y[1] || x[1]]
   end
 
   private
+
+  def get_coordinates(input, range)
+    input.select { |char| char.ord.between?(range[0], range[1]) }.reverse
+  end
+
+  def promoting(input, notation, y_dest)
+    if piece_class.include?(input[-1]) && notation == 'P' && (y_dest.zero? || y_dest == 7)
+      piece_class[input[-1]]
+    else
+      false
+    end
+  end
 
   def piece_class
     { 'K' => King, 'Q' => Queen, 'B' => Bishop, 'R' => Rook, 'N' => Knight, 'P' => Pawn }
