@@ -27,11 +27,12 @@ class Chess < Board
     input = input.split('')
     x = get_x_coordinates(input)
     y = get_y_coordinates(input)
-    notation = piece_class.include?(input[0]) ? input[0] : 'P' # notation
+    notation = get_name(input)
     promoting_to = promoting(input, notation, y[0]) if input.include?('=')
+    check = input[-1] == '#' || input[-1] == '+' ? input[-1] : nil
     return unless x.size.between?(1, 2) && y.size.between?(1, 2) && promoting_to != false
 
-    [x[0], y[0], notation, input.include?('x'), promoting_to, y[1] || x[1]]
+    [x[0], y[0], notation, input.include?('x'), promoting_to, y[1] || x[1], check]
   end
 
   private
@@ -57,6 +58,17 @@ class Chess < Board
       input
     else
       []
+    end
+  end
+
+  # takes input and returns the name of the piece or piece promoting to
+  def get_name(input)
+    return if input.select { |char| char.ord.between?(65, 90) }.size > 1
+
+    if input.include?('=') || !piece_class.include?(input[0])
+      'P'
+    else
+      input[0]
     end
   end
 
