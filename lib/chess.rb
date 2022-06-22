@@ -51,32 +51,28 @@ class Chess < Board
   def piece_class
     { 'K' => King, 'Q' => Queen, 'B' => Bishop, 'R' => Rook, 'N' => Knight, 'P' => Pawn }
   end
-
-  def next_player
-    @current_player = @current_player == @player1 ? @player2 : @player1
-  end
-
+  
   def move_to(x_dest, y_dest, piece, promoting_to)
     x_origin = piece.position[1]
     y_origin = piece.position[0]
     @grid[y_origin][x_origin] = nil
-
+    
     if promoting_to.nil?
       piece.position(x_dest, y_dest)
       @grid[y_dest][x_dest] = piece
     else
       @grid[y_dest][x_dest] = promoting_to.new(@current_player[:pieces], [y_dest, x_dest])
     end
-
+    
     @last_move = [[y_origin, x_origin], [y_dest, x_dest]]
   end
-
+  
   def get_piece(x_dest, y_dest, notation, capturing)
     get = nil
     @pieces.each do |piece|
       next unless piece.type == @current_player[:pieces] && piece.notation == notation &&
-                  piece.moves(@grid).include?([y_dest, x_dest, capturing])
-
+      piece.moves(@grid).include?([y_dest, x_dest, capturing])
+      
       check_pawn(piece, y_dest) if piece.notation == 'P'
       get = piece
       break
@@ -84,13 +80,17 @@ class Chess < Board
     get
   end
 
+  def next_player
+    @current_player = @current_player == @player1 ? @player2 : @player1
+  end
+  
   def check_pawn(pawn, y_dest)
     pawn.en_passant = if @current_player[:pieces] == :white
-                        pawn.first_move && y_dest == 3 ? true : false
-                      else
-                        pawn.first_move && y_dest == 4 ? true : false
-                      end
-
+      pawn.first_move && y_dest == 3 ? true : false
+    else
+      pawn.first_move && y_dest == 4 ? true : false
+    end
+    
     pawn.first_move = false
   end
 end
