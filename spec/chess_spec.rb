@@ -144,4 +144,39 @@ RSpec.describe Chess do
       end
     end
   end
+
+  describe '#check' do
+    context '@check = true if move puts king in check:' do
+      it 'check' do
+        game = Chess.new('bruno', 'giu')
+        game.move_piece('f3')
+        game.move_piece('e5')
+        game.move_piece('a3')
+        game.move_piece('Qh4')
+        expect(game.check).to be_truthy
+      end
+    end
+  end
+
+  describe '#checkmate' do    
+    context '@checkmate = true if move causes checkmate' do
+      it 'fastest checkmate' do
+        game = Chess.new('bruno', 'giu')
+        game.move_piece('f3')
+        game.move_piece('e5')
+        game.move_piece('g4')
+        game.move_piece('Qh4')
+        expect(game.checkmate).to be_truthy
+      end
+
+      it 'check, but not a checkmate, returns false' do
+        game = Chess.new('bruno', 'giu')
+        game.move_piece('f3')
+        game.move_piece('e5')
+        game.move_piece('a3')
+        game.move_piece('Qh4')
+        expect(game.checkmate).to be_falsey
+      end
+    end
+  end
 end

@@ -4,6 +4,8 @@ require_relative 'pieces'
 
 # king class to treat each king as a node
 class King < Pieces
+  attr_reader :position
+
   def initialize(type, position)
     super(type, position)
     @unicode = type == :black ? '♚' : '♔'

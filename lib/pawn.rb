@@ -30,7 +30,7 @@ class Pawn < Pieces
       x = @position[1] + direction[1]
       next if grid[y][x].nil?
 
-      moves << [y, x, true] # add legal move to moves, 1 represent capturing
+      moves << [y, x, true] # add legal move to moves, true represent capturing
     end
     moves
   end

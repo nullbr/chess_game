@@ -14,7 +14,7 @@ class Chess < Board
   def initialize(player1, player2 = nil)
     super(player1, player2)
     @current_player = @player1
-    @last_move = [[], []]
+    @last_move = [[], [], nil]
   end
 
   def move_piece(input)
@@ -43,7 +43,34 @@ class Chess < Board
     [x[0], y[0], notation, input.include?('x'), promoting_to, y[1] || x[1], check]
   end
 
+  def check
+    last_piece = @last_move[2]
+    return false if last_piece.nil?
+
+    king = get_rival_king(last_piece)
+    capturing_moves = last_piece.moves(@grid).select { |move| move[2] == true }
+    position = king.position[0..1]
+    position << true
+    capturing_moves.include?(position)
+  end
+
+  def checkmate
+    last_piece = @last_move[2]
+    return false if last_piece.nil?
+
+    king = get_rival_king(last_piece)
+    capturing_moves = last_piece.moves(@grid).select { |move| move[2] == true }
+    position = king.position[0..1]
+    position << true
+    capturing_moves.include?(position)
+  end
+
   private
+
+  def get_rival_king(last_piece)
+    type = last_piece.type == :white ? :black : :white
+    @pieces.select { |piece| piece.notation == 'K' && piece.type == type }[0]
+  end
 
   # check if the input has the right params
   def input_valid?(input)
@@ -88,12 +115,12 @@ class Chess < Board
 
     if promoting_to.nil?
       piece.position(x_dest, y_dest)
-      @grid[y_dest][x_dest] = piece
     else
-      @grid[y_dest][x_dest] = promoting_to.new(@current_player[:pieces], [y_dest, x_dest])
+      piece = promoting_to.new(@current_player[:pieces], [y_dest, x_dest])
     end
+    @grid[y_dest][x_dest] = piece
 
-    @last_move = [[y_origin, x_origin], [y_dest, x_dest]]
+    @last_move = [[y_origin, x_origin], [y_dest, x_dest], piece]
   end
 
   def get_piece(x_dest, y_dest, notation, capturing, origin)
