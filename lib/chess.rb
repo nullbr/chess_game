@@ -25,6 +25,8 @@ class Chess < Board
 
   def process_input(input)
     input = input.split('')
+    return unless input_valid?(input)
+
     x = get_x_coordinates(input)
     y = get_y_coordinates(input)
     notation = get_name(input)
@@ -36,6 +38,17 @@ class Chess < Board
   end
 
   private
+
+  # check if the input has the right params
+  def input_valid?(input)
+    # input includes on valid characters:
+    valid_chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+                   '1', '2', '3', '4', '5', '6', '7', '8',
+                   'x', '=', '+', '#', 'K', 'Q', 'B', 'R', 'N', 'P']
+    input.all? { |char| valid_chars.include?(char) } &&
+      input.select { |char| char.ord.between?(97, 104) }.size.between?(1, 2) &&
+      input.select { |char| char.ord.between?(48, 57) }.size.between?(1, 2)
+  end
 
   # takes in the input, gets coodinates info and returns it. Returns empty array if invalid info
   def get_x_coordinates(input)

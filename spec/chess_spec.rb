@@ -134,6 +134,14 @@ RSpec.describe Chess do
       it 'Kexf4# with checkmate' do
         expect(game.process_input('Kexf4#')).to eq([5, 3, 'K', true, nil, 4, '#']) # [x_dest, y_dest, notation, capturing, promoting_to, y or x_origin, check]
       end
+
+      it 'invalid input' do
+        expect(game.process_input('Kexf4#9')).to eq(nil) # [x_dest, y_dest, notation, capturing, promoting_to, y or x_origin, check]
+      end
+
+      it 'Kexf4# with checkmate' do
+        expect(game.process_input('t')).to eq(nil) # [x_dest, y_dest, notation, capturing, promoting_to, y or x_origin, check]
+      end
     end
   end
 end
