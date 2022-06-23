@@ -14,7 +14,6 @@ class Chess < Board
   def initialize(player1, player2 = nil)
     super(player1, player2)
     @current_player = @player1
-    @last_move = [[], [], nil]
   end
 
   def move_piece(input)

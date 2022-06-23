@@ -7,6 +7,7 @@ require_relative 'knight'
 require_relative 'bishop'
 require_relative 'rook'
 require_relative 'pawn'
+require 'pry'
 
 # Chess board with colorize gem
 class Board
@@ -16,7 +17,8 @@ class Board
     @player1 = { name: player1, pieces: :white }
     @player2 = { name: player2, pieces: :black }
     @grid = []
-    @pieces = []
+    @all_pieces = { white: [], black: [] }
+    @last_move = [[], [], nil]
     8.times { @grid << [nil, nil, nil, nil, nil, nil, nil, nil] }
     set_initial_positions unless clean
   end
@@ -41,9 +43,11 @@ class Board
   end
 
   def refresh_grid
-    @pieces.each do |piece|
-      pos = piece.position
-      @grid[pos[0]][pos[1]] = piece
+    @all_pieces.each do |_type, pieces|
+      pieces.each do |piece|
+        pos = piece.position
+        @grid[pos[0]][pos[1]] = piece
+      end
     end
   end
 
@@ -55,39 +59,39 @@ class Board
   end
 
   def pawns
-    8.times { |n| @pieces << Pawn.new(:white, [1, n]) }
-    8.times { |n| @pieces << Pawn.new(:black, [6, n]) }
+    8.times { |n| @all_pieces[:white] << Pawn.new(:white, [1, n]) }
+    8.times { |n| @all_pieces[:black] << Pawn.new(:black, [6, n]) }
   end
 
   def rooks
-    @pieces << Rook.new(:white, [0, 0])
-    @pieces << Rook.new(:white, [0, 7])
-    @pieces << Rook.new(:black, [7, 0])
-    @pieces << Rook.new(:black, [7, 7])
+    @all_pieces[:white] << Rook.new(:white, [0, 0])
+    @all_pieces[:white] << Rook.new(:white, [0, 7])
+    @all_pieces[:black] << Rook.new(:black, [7, 0])
+    @all_pieces[:black] << Rook.new(:black, [7, 7])
   end
 
   def queens
-    @pieces << Queen.new(:white, [0, 3])
-    @pieces << Queen.new(:black, [7, 3])
+    @all_pieces[:white] << Queen.new(:white, [0, 3])
+    @all_pieces[:black] << Queen.new(:black, [7, 3])
   end
 
   def kings
-    @pieces << King.new(:white, [0, 4])
-    @pieces << King.new(:black, [7, 4])
+    @all_pieces[:white] << King.new(:white, [0, 4])
+    @all_pieces[:black] << King.new(:black, [7, 4])
   end
 
   def knights
-    @pieces << Knight.new(:white, [0, 1])
-    @pieces << Knight.new(:white, [0, 6])
-    @pieces << Knight.new(:black, [7, 1])
-    @pieces << Knight.new(:black, [7, 6])
+    @all_pieces[:white] << Knight.new(:white, [0, 1])
+    @all_pieces[:white] << Knight.new(:white, [0, 6])
+    @all_pieces[:black] << Knight.new(:black, [7, 1])
+    @all_pieces[:black] << Knight.new(:black, [7, 6])
   end
 
   def bishops
-    @pieces << Bishop.new(:white, [0, 2])
-    @pieces << Bishop.new(:white, [0, 5])
-    @pieces << Bishop.new(:black, [7, 2])
-    @pieces << Bishop.new(:black, [7, 5])
+    @all_pieces[:white] << Bishop.new(:white, [0, 2])
+    @all_pieces[:white] << Bishop.new(:white, [0, 5])
+    @all_pieces[:black] << Bishop.new(:black, [7, 2])
+    @all_pieces[:black] << Bishop.new(:black, [7, 5])
   end
 end
 
