@@ -52,14 +52,7 @@ class Chess < Board
 
   # takes in the input, gets coodinates info and returns it. Returns empty array if invalid info
   def get_x_coordinates(input)
-    input = input.map { |char| char.ord - 97 }
-    input = input.select { |char| char.between?(0, 7) }.reverse
-
-    if input.size > 2 && input.any? { |char| char.between?(8, 25) && char != 23 }
-      []
-    else
-      input
-    end
+    input.map { |char| char.ord - 97 }.select { |char| char.between?(0, 7) }.reverse
   end
 
   # takes in the input, gets coodinates info and returns it. Returns empty array if invalid info
