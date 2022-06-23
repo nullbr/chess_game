@@ -57,14 +57,7 @@ class Chess < Board
 
   # takes in the input, gets coodinates info and returns it. Returns empty array if invalid info
   def get_y_coordinates(input)
-    input = input.select { |char| char.ord.between?(48, 57) }
-    input = input.map { |char| char.to_i - 1 }.reverse
-
-    if input.size.between?(1, 2) && input.all? { |num| num.between?(0, 7) }
-      input
-    else
-      []
-    end
+    input.select { |char| char.ord.between?(48, 57) }.map { |char| char.to_i - 1 }.reverse
   end
 
   # takes input and returns the name of the piece or piece promoting to
