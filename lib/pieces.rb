@@ -5,8 +5,8 @@ require_relative 'path'
 class Pieces
   include Path
 
-  attr_reader :unicode, :type, :parent, :children
-  attr_accessor :notation
+  attr_reader :unicode, :type
+  attr_accessor :notation, :children
 
   def initialize(type, position)
     @type = type
@@ -14,22 +14,10 @@ class Pieces
     @notation = nil
     @parent = nil
     @children = []
-    @@history = [position]
   end
 
-  def possible_moves
-    directions = possible_directions
-    moves = []
-    directions.each do |direction|
-      x = @position[0] + direction[0]
-      y = @position[1] + direction[1]
-      moves << [x, y] if x.between?(0, 7) && y.between?(0, 7) && !@@history.include?([x, y])
-    end
-    moves
-  end
-
-  def set_parent(parent)
-    @parent = parent
+  def parent(parent = nil)
+    @parent = parent.nil? ? @parent : parent
   end
 
   # takes a position as an array and returns the new position
@@ -44,9 +32,14 @@ class Pieces
     directions.each do |direction|
       y = @position[0] + direction[0]
       x = @position[1] + direction[1]
-      next unless y.between?(0, 7) && x.between?(0, 7)
+      next unless y.between?(0, 7) && x.between?(0, 7) && @position != [y, x]
 
-      grid[y][x].nil? ? (moves << [y, x, false]) : (moves << [y, x, true]) # add legal move to moves, 0 represent not capturing
+      destination = grid[y][x]
+      if !destination.nil?
+        moves << [y, x, true] unless destination.type == @type
+      else
+        moves << [y, x, false] # add legal move to moves, true represent not capturing
+      end
     end
     moves
   end

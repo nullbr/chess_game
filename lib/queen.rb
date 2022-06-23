@@ -20,7 +20,7 @@ class Queen < Pieces
       while y.between?(0, 7) && x.between?(0, 7)
         in_location = grid[y][x]
 
-        unless in_location.nil? # add legal move to moves, 1 represent capturing
+        unless in_location.nil?  && @position != [y, x] # add legal move to moves, 1 represent capturing
           moves << [y, x, true] unless in_location.type == @type
           break
         end

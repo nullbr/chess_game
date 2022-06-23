@@ -9,13 +9,16 @@ module Path
     current_piece = self
     initial_pos = current_piece.position
     queue = [current_piece]
-    until current_piece.position == final_pos
+ 
+    until !current_piece || current_piece.position == final_pos
       current_piece = create_children(current_piece, grid)
       current_piece.children.each { |child| queue.push(child) }
       current_piece = queue.shift
     end
-    path = path_to_destination(current_piece.parent, [final_pos], initial_pos == final_pos)
-    print_path(path)
+
+    return [] unless current_piece
+
+    path_to_destination(current_piece.parent, [final_pos], initial_pos == final_pos)
   end
 
   def path_to_destination(parent, path, zero_path)
@@ -25,12 +28,6 @@ module Path
     path << parent.position
     path_to_destination(parent.parent, path, false)
     path.reverse
-  end
-
-  def print_path(path)
-    moves_num = path.size - 1
-    puts "You made it in #{moves_num} #{moves_num == 1 ? 'move' : 'moves'}!  Here's your path:"
-    path.each { |pos| p pos }
   end
 
   private
@@ -48,7 +45,7 @@ module Path
   def create_child(move, parent)
     type = parent.type
     child = self.class.new(type, move)
-    child.set_parent(parent)
+    child.parent(parent)
     child
   end
 end

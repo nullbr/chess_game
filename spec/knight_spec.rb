@@ -15,5 +15,13 @@ RSpec.describe Knight do
         expect(knight.moves(board.grid).size).to eq(2)
       end
     end
+
+    context 'initialized board:' do
+      it 'returns the possible moves of a black knight' do
+        board = Board.new('bruno', 'giu')
+        knight = board.grid[7][1]
+        expect(knight.moves(board.grid).size).to eq(2)
+      end
+    end
   end
 end
