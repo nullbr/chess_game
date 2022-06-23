@@ -5,6 +5,12 @@ require 'pry'
 
 # main driver class frot the chess game
 class Chess < Board
+  # input valid characters:
+  VALID_CHARS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+                 '1', '2', '3', '4', '5', '6', '7', '8',
+                 'x', '=', '+', '#', 'K', 'Q', 'B', 'R', 'N', 'P'].freeze
+  PIECE_CLASS = { 'K' => King, 'Q' => Queen, 'B' => Bishop, 'R' => Rook, 'N' => Knight, 'P' => Pawn }.freeze
+
   def initialize(player1, player2 = nil)
     super(player1, player2)
     @current_player = @player1
@@ -41,11 +47,7 @@ class Chess < Board
 
   # check if the input has the right params
   def input_valid?(input)
-    # input includes on valid characters:
-    valid_chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
-                   '1', '2', '3', '4', '5', '6', '7', '8',
-                   'x', '=', '+', '#', 'K', 'Q', 'B', 'R', 'N', 'P']
-    input.all? { |char| valid_chars.include?(char) } &&
+    input.all? { |char| VALID_CHARS.include?(char) } &&
       input.select { |char| char.ord.between?(97, 104) }.size.between?(1, 2) &&
       input.select { |char| char.ord.between?(48, 57) }.size.between?(1, 2)
   end
@@ -64,7 +66,7 @@ class Chess < Board
   def get_name(input)
     return if input.select { |char| char.ord.between?(65, 90) }.size > 1
 
-    if input.include?('=') || !piece_class.include?(input[0])
+    if input.include?('=') || !PIECE_CLASS.include?(input[0])
       'P'
     else
       input[0]
@@ -72,15 +74,11 @@ class Chess < Board
   end
 
   def promoting(input, notation, y_dest)
-    if piece_class.include?(input[-1]) && notation == 'P' && (y_dest.zero? || y_dest == 7)
-      piece_class[input[-1]]
+    if PIECE_CLASS.include?(input[-1]) && notation == 'P' && (y_dest.zero? || y_dest == 7)
+      PIECE_CLASS[input[-1]]
     else
       false
     end
-  end
-
-  def piece_class
-    { 'K' => King, 'Q' => Queen, 'B' => Bishop, 'R' => Rook, 'N' => Knight, 'P' => Pawn }
   end
 
   def move_to(x_dest, y_dest, piece, promoting_to)
