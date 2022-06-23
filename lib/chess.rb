@@ -66,7 +66,7 @@ class Chess < Board
 
   def get_rival_king(last_piece)
     type = last_piece.type == :white ? :black : :white
-    @pieces.select { |piece| piece.notation == 'K' && piece.type == type }[0]
+    @all_pieces[type].select { |piece| piece.notation == 'K' }[0]
   end
 
   # check if the input has the right params
@@ -122,8 +122,8 @@ class Chess < Board
 
   def get_piece(x_dest, y_dest, notation, capturing, origin)
     get = nil
-    @pieces.each do |piece|
-      next unless piece.type == @current_player[:pieces] && piece.notation == notation &&
+    @all_pieces[@current_player[:pieces]].each do |piece|
+      next unless piece.notation == notation &&
                   piece.moves(@grid).include?([y_dest, x_dest, capturing]) &&
                   origin.nil? || piece.position.include?(origin)
 
