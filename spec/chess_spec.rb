@@ -175,6 +175,8 @@ RSpec.describe Chess do
         game.move_piece('e5')
         game.move_piece('a3')
         game.move_piece('Qh4')
+        puts ''
+        game.to_s
         expect(game.checkmate).to be_falsey
       end
     end

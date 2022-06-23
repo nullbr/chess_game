@@ -49,8 +49,7 @@ class Chess < Board
 
     king = get_rival_king(last_piece)
     capturing_moves = last_piece.moves(@grid).select { |move| move[2] == true }
-    position = king.position[0..1]
-    position << true
+    position = king.position[0..1] + [true]
     capturing_moves.include?(position)
   end
 
@@ -60,8 +59,7 @@ class Chess < Board
 
     king = get_rival_king(last_piece)
     capturing_moves = last_piece.moves(@grid).select { |move| move[2] == true }
-    position = king.position[0..1]
-    position << true
+    position = king.position[0..1] + [true]
     capturing_moves.include?(position)
   end
 

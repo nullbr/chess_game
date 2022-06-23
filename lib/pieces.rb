@@ -1,11 +1,35 @@
+# frozen_string_literal: true
+
+require_relative 'path'
+
 class Pieces
-  attr_reader :unicode, :type
+  include Path
+
+  attr_reader :unicode, :type, :parent, :children
   attr_accessor :notation
 
   def initialize(type, position)
     @type = type
     @position = position
     @notation = nil
+    @parent = nil
+    @children = []
+    @@history = [position]
+  end
+
+  def possible_moves
+    directions = possible_directions
+    moves = []
+    directions.each do |direction|
+      x = @position[0] + direction[0]
+      y = @position[1] + direction[1]
+      moves << [x, y] if x.between?(0, 7) && y.between?(0, 7) && !@@history.include?([x, y])
+    end
+    moves
+  end
+
+  def set_parent(parent)
+    @parent = parent
   end
 
   # takes a position as an array and returns the new position
