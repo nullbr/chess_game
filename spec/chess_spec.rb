@@ -157,9 +157,23 @@ RSpec.describe Chess do
       end
     end
   end
-
+  
   describe '#checkmate' do
     context 'true if move causes checkmate:' do
+      it 'check, but rook can defend, returns false' do
+        game = Chess.new('bruno', 'giu')
+        game.move_piece('f3')
+        game.move_piece('e5')
+        game.move_piece('g4')
+        game.move_piece('a6')
+        game.move_piece('h4')
+        game.move_piece('Qxh4')
+    
+        puts ''
+        game.to_s
+        expect(game.checkmate?).to be_falsey
+      end
+
       it 'fastest checkmate' do
         game = Chess.new('bruno', 'giu')
         game.move_piece('f3')
@@ -175,8 +189,17 @@ RSpec.describe Chess do
         game.move_piece('e5')
         game.move_piece('a3')
         game.move_piece('Qh4')
-        puts ''
-        game.to_s
+        expect(game.checkmate?).to be_falsey
+      end
+
+      it 'check, but king can defend, returns false' do
+        game = Chess.new('bruno', 'giu')
+        game.move_piece('f3')
+        game.move_piece('e5')
+        game.move_piece('g4')
+        game.move_piece('Na6')
+        game.move_piece('e3')
+        game.move_piece('Qh4')
         expect(game.checkmate?).to be_falsey
       end
     end

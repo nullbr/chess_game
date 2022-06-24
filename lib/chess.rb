@@ -11,6 +11,8 @@ class Chess < Board
                  'x', '=', '+', '#', 'K', 'Q', 'B', 'R', 'N', 'P'].freeze
   PIECE_CLASS = { 'K' => King, 'Q' => Queen, 'B' => Bishop, 'R' => Rook, 'N' => Knight, 'P' => Pawn }.freeze
 
+  attr_reader :current_player
+  
   def initialize(player1, player2 = nil)
     super(player1, player2)
     @current_player = @player1
@@ -57,45 +59,55 @@ class Chess < Board
   # by defending pieces
   def checkmate?
     return false unless check?
-    checkmate = true
 
     # path of last piece to the opponet's king
     king = get_rival_king(@last_move[2])
     initial_pos = @last_move[1]
     final_pos = king.position
     path = blocks_in_path(initial_pos, final_pos)
-
-    @all_pieces[king.type].each do |piece|
-      path.each do |position|
-        if piece.moves(@grid).map { |move| move[0..1] }.include?(position)
-          
-          binding.pry
-          
-          checkmate = false
-        end
-      end
-    end
-    checkmate
+    
+    king_defend!(king, path) && defend_king!(king, path)
   end
 
   private
-  
-  def blocks_in_path(initial_pos, final_pos)
-    if (final_pos[0] - initial_pos[0]).zero?
-      y = 0
-    elsif (final_pos[0] - initial_pos[0]).negative?
-      y = -1
-    else
-      y = 1
-    end
 
-    if (final_pos[1] - initial_pos[1]).zero?
-      x = 0
-    elsif (final_pos[1] - initial_pos[1]).negative?
-      x = -1
-    else
-      x = 1
+  # checks if king can defend itself
+  def king_defend!(king, path)
+    moves = king.moves(@grid).map { |move| move[0..1] }
+    moves.all? { |move| path.include?(move) }
+  end
+
+  # checks if any pieces can defend the king
+  def defend_king!(king, path)
+    defend = true
+    @all_pieces[king.type].each do |piece|
+      next if piece == king
+
+      moves = piece.moves(@grid).map { |move| move[0..1] }
+      if moves.any? { |move| path.include?(move) }
+        defend = false
+        break
+      end
     end
+    defend
+  end
+
+  def blocks_in_path(initial_pos, final_pos)
+    y = if (final_pos[0] - initial_pos[0]).zero?
+          0
+        elsif (final_pos[0] - initial_pos[0]).negative?
+          -1
+        else
+          1
+        end
+
+    x = if (final_pos[1] - initial_pos[1]).zero?
+          0
+        elsif (final_pos[1] - initial_pos[1]).negative?
+          -1
+        else
+          1
+        end
 
     moves = []
     until initial_pos == final_pos
@@ -189,6 +201,3 @@ class Chess < Board
     pawn.first_move = false
   end
 end
-
-game = Chess.new('bruno')
-game.to_s
