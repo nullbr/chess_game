@@ -153,20 +153,20 @@ RSpec.describe Chess do
         game.move_piece('e5')
         game.move_piece('a3')
         game.move_piece('Qh4')
-        expect(game.check).to be_truthy
+        expect(game.check?).to be_truthy
       end
     end
   end
 
-  describe '#checkmate' do    
-    context '@checkmate = true if move causes checkmate' do
+  describe '#checkmate' do
+    context 'true if move causes checkmate:' do
       it 'fastest checkmate' do
         game = Chess.new('bruno', 'giu')
         game.move_piece('f3')
         game.move_piece('e5')
         game.move_piece('g4')
         game.move_piece('Qh4')
-        expect(game.checkmate).to be_truthy
+        expect(game.checkmate?).to be_truthy
       end
 
       it 'check, but not a checkmate, returns false' do
@@ -177,7 +177,7 @@ RSpec.describe Chess do
         game.move_piece('Qh4')
         puts ''
         game.to_s
-        expect(game.checkmate).to be_falsey
+        expect(game.checkmate?).to be_falsey
       end
     end
   end

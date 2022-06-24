@@ -42,7 +42,8 @@ class Chess < Board
     [x[0], y[0], notation, input.include?('x'), promoting_to, y[1] || x[1], check]
   end
 
-  def check
+  # checks if last piece can capture the opponent's king
+  def check?
     last_piece = @last_move[2]
     return false if last_piece.nil?
 
@@ -52,17 +53,57 @@ class Chess < Board
     capturing_moves.include?(position)
   end
 
-  def checkmate
-    last_piece = @last_move[2]
-    return false if last_piece.nil?
+  # if check is true, will check if capture of the king can be blocked
+  # by defending pieces
+  def checkmate?
+    return false unless check?
+    checkmate = true
 
-    king = get_rival_king(last_piece)
-    capturing_moves = last_piece.moves(@grid).select { |move| move[2] == true }
-    position = king.position[0..1] + [true]
-    capturing_moves.include?(position)
+    # path of last piece to the opponet's king
+    king = get_rival_king(@last_move[2])
+    initial_pos = @last_move[1]
+    final_pos = king.position
+    path = blocks_in_path(initial_pos, final_pos)
+
+    @all_pieces[king.type].each do |piece|
+      path.each do |position|
+        if piece.moves(@grid).map { |move| move[0..1] }.include?(position)
+          
+          binding.pry
+          
+          checkmate = false
+        end
+      end
+    end
+    checkmate
   end
 
   private
+  
+  def blocks_in_path(initial_pos, final_pos)
+    if (final_pos[0] - initial_pos[0]).zero?
+      y = 0
+    elsif (final_pos[0] - initial_pos[0]).negative?
+      y = -1
+    else
+      y = 1
+    end
+
+    if (final_pos[1] - initial_pos[1]).zero?
+      x = 0
+    elsif (final_pos[1] - initial_pos[1]).negative?
+      x = -1
+    else
+      x = 1
+    end
+
+    moves = []
+    until initial_pos == final_pos
+      initial_pos = [initial_pos[0] + y, initial_pos[1] + x]
+      moves << initial_pos
+    end
+    moves[0..-2]
+  end
 
   def get_rival_king(last_piece)
     type = last_piece.type == :white ? :black : :white
@@ -149,5 +190,5 @@ class Chess < Board
   end
 end
 
-# game = Chess.new('bruno')
-# game.to_s
+game = Chess.new('bruno')
+game.to_s
