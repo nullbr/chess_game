@@ -171,7 +171,7 @@ class Chess < Board
       piece = promoting_to.new(@current_player[:pieces], [y_dest, x_dest])
     end
     capture = @grid[y_dest][x_dest]
-    @captured = "#{capture.type} #{capture.class}" unless capture.nil?
+    @captured << "#{capture.type} #{capture.class}" unless capture.nil?
     @grid[y_dest][x_dest] = piece
 
     @last_move = [[y_origin, x_origin], [y_dest, x_dest], piece]

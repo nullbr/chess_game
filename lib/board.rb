@@ -28,7 +28,7 @@ class Board
   def to_s
     8.times do |row|
       row = 7 - row
-      print "#{row + 1} "
+      print " #{row + 1} "
       8.times do |column|
         block = @grid[row][column].nil? ? '   ' : " #{@grid[row][column].unicode} "
         if row == @last_move[0][0] && column == @last_move[0][1] || row == @last_move[1][0] && column == @last_move[1][1]
@@ -41,9 +41,9 @@ class Board
       end
       print "\n"
     end
-    puts "   a  b  c  d  e  f  g  h\n"
-    puts "Moves: #{@all_moves}"
-    puts "Captures: #{@captured}"
+    puts "    a  b  c  d  e  f  g  h\n"
+    puts "Moves: #{@all_moves.join(', ')}"
+    puts "Captures: #{@captured.join(', ')}"
   end
 
   def refresh_grid
