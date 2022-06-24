@@ -19,6 +19,7 @@ class Chess < Board
   end
 
   def move_piece(input)
+    fresh_input = input
     input = process_input(input)
     return false if input.nil?
 
@@ -26,6 +27,7 @@ class Chess < Board
     return false if piece.nil?
 
     move_to(input[0], input[1], piece, input[4]) # (x_dest, y_dest, piece, promoting_to)
+    record_input(fresh_input)
     next_player
     true
   end
@@ -168,6 +170,8 @@ class Chess < Board
     else
       piece = promoting_to.new(@current_player[:pieces], [y_dest, x_dest])
     end
+    capture = @grid[y_dest][x_dest]
+    @captured = "#{capture.type} #{capture.class}" unless capture.nil?
     @grid[y_dest][x_dest] = piece
 
     @last_move = [[y_origin, x_origin], [y_dest, x_dest], piece]
@@ -185,6 +189,15 @@ class Chess < Board
       break
     end
     get
+  end
+
+  def record_input(input)
+    if checkmate? && !input.include?('#')
+      input += '#'
+    elsif check? && !input.include?('+')
+      input += '+'
+    end
+    @all_moves << input
   end
 
   def next_player

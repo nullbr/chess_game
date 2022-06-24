@@ -19,6 +19,8 @@ class Board
     @grid = []
     @all_pieces = { white: [], black: [] }
     @last_move = [[], [], nil]
+    @all_moves = []
+    @captured = []
     8.times { @grid << [nil, nil, nil, nil, nil, nil, nil, nil] }
     set_initial_positions unless clean
   end
@@ -39,7 +41,9 @@ class Board
       end
       print "\n"
     end
-    puts '   a  b  c  d  e  f  g  h'
+    puts "   a  b  c  d  e  f  g  h\n"
+    puts "Moves: #{@all_moves}"
+    puts "Captures: #{@captured}"
   end
 
   def refresh_grid
