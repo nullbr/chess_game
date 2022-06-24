@@ -8,9 +8,15 @@ A classic Chess game, written in ruby. The final TOP project in the ruby curricu
 
 ## Rules
 
-If you’ve never played, be sure to read up on the rules (see the [Wikipedia Page](https://en.wikipedia.org/wiki/Chess)) first.
+If you’ve never played, be sure to read up on the rules (see the [Wikipedia Page](https://en.wikipedia.org/wiki/Chess)) first. Also checkout [Chess.com](https://www.chess.com/learn-how-to-play-chess)
 
-Adding specific rules to this game later on
+The game is played using chess notation, here's a few examples:
+
+-   'Qd7+': Queen to d7, + representing a check
+-     'e4': Pawn (P ommited) to e4
+-  'Kxb5#': King captures at b5, # representing a checkmate
+-   'exf6': Pawn (from column e) captures at f6
+- 'fxg7=Q': Pawn (from column f) captures at g7 and gets promoted to a Queen
 
 ## Dependencies
 
