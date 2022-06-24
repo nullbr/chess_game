@@ -12,11 +12,13 @@ If you’ve never played, be sure to read up on the rules (see the [Wikipedia Pa
 
 The game is played using chess notation, here's a few examples:
 
--   'Qd7+': Queen to d7, + representing a check
--     'e4': Pawn (P ommited) to e4
--  'Kxb5#': King captures at b5, # representing a checkmate
--   'exf6': Pawn (from column e) captures at f6
-- 'fxg7=Q': Pawn (from column f) captures at g7 and gets promoted to a Queen
+```
+   Qd7+ | Queen to d7, + representing a check
+     e4 | Pawn (P ommited) to e4
+  Kxb5# | King captures at b5, # representing a checkmate
+   exf6 | Pawn (from column e) captures at f6
+ fxg7=Q | Pawn (from column f) captures at g7 and gets promoted to a Queen
+```
 
 ## Dependencies
 
