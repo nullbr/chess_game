@@ -12,7 +12,7 @@ class Chess < Board
   PIECE_CLASS = { 'K' => King, 'Q' => Queen, 'B' => Bishop, 'R' => Rook, 'N' => Knight, 'P' => Pawn }.freeze
 
   attr_reader :current_player
-  
+
   def initialize(player1, player2 = nil)
     super(player1, player2)
     @current_player = @player1
@@ -66,6 +66,9 @@ class Chess < Board
     final_pos = king.position
     path = blocks_in_path(initial_pos, final_pos)
     
+    binding.pry
+    
+
     king_defend!(king, path) && defend_king!(king, path)
   end
 
