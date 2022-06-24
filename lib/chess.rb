@@ -65,9 +65,6 @@ class Chess < Board
     initial_pos = @last_move[1]
     final_pos = king.position
     path = blocks_in_path(initial_pos, final_pos)
-    
-    binding.pry
-    
 
     king_defend!(king, path) && defend_king!(king, path)
   end
@@ -114,10 +111,10 @@ class Chess < Board
 
     moves = []
     until initial_pos == final_pos
-      initial_pos = [initial_pos[0] + y, initial_pos[1] + x]
       moves << initial_pos
+      initial_pos = [initial_pos[0] + y, initial_pos[1] + x]
     end
-    moves[0..-2]
+    moves
   end
 
   def get_rival_king(last_piece)
