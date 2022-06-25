@@ -26,7 +26,7 @@ RSpec.describe Chess do
 
     context 'checks that correct piece gets moved to the position:' do
       game = Chess.new('bruno', 'giu')
-      it 'bug 1' do
+      it 'bug 1, pawn moves back' do
         game.move_piece('a3')
         game.move_piece('d6')
         game.move_piece('h4')
@@ -49,15 +49,18 @@ RSpec.describe Chess do
         game.move_piece('Rxa5')
         game.move_piece('Rh2')
         game.move_piece('Rxa3')
-        expect(game.move_piece('cb2')).to be_falsey # moves pawn to invealid location
-      end
-
-      it 'bug 2' do
-        game.move_piece('Bb2')
-        
         puts ''
         game.to_s
         expect(game.move_piece('cb2')).to be_falsey # moves pawn to invealid location
+      end
+
+      it 'bug 2, causes infinite loop' do
+        game.move_piece('Bb2')
+        game.move_piece('exd4')
+        game.move_piece('b3')
+        game.move_piece('Nb4')
+        game.move_piece('e4')
+        expect(game.move_piece('Nc2')).to be_truthy # moves knight into check and causes an infinite loop
       end
     end
 

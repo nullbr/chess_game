@@ -43,7 +43,8 @@ class Board
     end
     puts "    a  b  c  d  e  f  g  h\n"
     puts "Moves: #{@all_moves.join(', ')}"
-    puts "Captures: #{@captured.join(', ')}"
+    # puts "Captures: #{@captured.join(', ')}"
+    p @captured
   end
 
   def refresh_grid

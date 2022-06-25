@@ -24,6 +24,9 @@ class Chess < Board
     return false if input.nil?
 
     piece = get_piece(input[0], input[1], input[2], input[3], input[5]) # (x_dest, y_dest, notation, capturing, origin)
+
+    # binding.pry if fresh_input == 'cb2'
+
     return false if piece.nil?
 
     move_to(input[0], input[1], piece, input[4]) # (x_dest, y_dest, piece, promoting_to)
@@ -171,9 +174,13 @@ class Chess < Board
       piece = promoting_to.new(@current_player[:pieces], [y_dest, x_dest])
     end
     capture = @grid[y_dest][x_dest]
-    @captured << "#{capture.type} #{capture.class}" unless capture.nil?
-    @grid[y_dest][x_dest] = piece
+    unless capture.nil?
+      @all_pieces[@current_player[:pieces]].delete(capture)
+      @captured << capture.position
+      # @captured << "#{capture.type} #{capture.class}"
+    end
 
+    @grid[y_dest][x_dest] = piece
     @last_move = [[y_origin, x_origin], [y_dest, x_dest], piece]
   end
 
@@ -182,8 +189,9 @@ class Chess < Board
     @all_pieces[@current_player[:pieces]].each do |piece|
       next unless piece.notation == notation &&
                   piece.moves(@grid).include?([y_dest, x_dest, capturing]) &&
-                  origin.nil? || piece.position.include?(origin)
+                  (origin.nil? || piece.position.include?(origin))
 
+      #binding.pry if [x_dest, y_dest, notation, capturing, origin] == [1, 1, "P", false, 2]
       check_pawn(piece, y_dest) if piece.notation == 'P'
       get = piece
       break
@@ -214,3 +222,90 @@ class Chess < Board
     pawn.first_move = false
   end
 end
+
+game = Chess.new('bruno', 'giu')
+
+game.move_piece('a3')
+puts ''
+game.to_s
+game.move_piece('d6')
+puts ''
+game.to_s
+game.move_piece('h4')
+puts ''
+game.to_s
+game.move_piece('g6')
+puts ''
+game.to_s
+game.move_piece('b4')
+puts ''
+game.to_s
+game.move_piece('Nc6')
+puts ''
+game.to_s
+game.move_piece('c3')
+puts ''
+game.to_s
+game.move_piece('f5')
+puts ''
+game.to_s
+game.move_piece('d4')
+puts ''
+game.to_s
+game.move_piece('Nf6')
+puts ''
+game.to_s
+game.move_piece('e3')
+puts ''
+game.to_s
+game.move_piece('Ng4')
+puts ''
+game.to_s
+game.move_piece('g3')
+puts ''
+game.to_s
+game.move_piece('d5')
+puts ''
+game.to_s
+game.move_piece('f3')
+puts ''
+game.to_s
+game.move_piece('e5')
+puts ''
+game.to_s
+game.move_piece('Ra2')
+puts ''
+game.to_s
+game.move_piece('a5')
+puts ''
+game.to_s
+game.move_piece('bxa5')
+puts ''
+game.to_s
+game.move_piece('Rxa5')
+puts ''
+game.to_s
+game.move_piece('Rh2')
+puts ''
+game.to_s
+game.move_piece('Rxa3')
+puts ''
+game.to_s
+game.move_piece('Bb2')
+puts ''
+game.to_s
+game.move_piece('exd4')
+puts ''
+game.to_s
+game.move_piece('c4')
+puts ''
+game.to_s
+game.move_piece('Nb4')
+puts ''
+game.to_s
+game.move_piece('e4')
+puts ''
+game.to_s
+game.move_piece('Nc2')
+puts ''
+game.to_s
