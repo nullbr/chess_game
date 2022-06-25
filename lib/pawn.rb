@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'pieces'
-require 'pry'
 
 # pawn class to treat each pawn as a node
 class Pawn < Pieces
