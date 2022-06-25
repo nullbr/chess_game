@@ -26,7 +26,7 @@ class Chess < Board
 
     piece = get_piece(input[0], input[1], input[2], input[3], input[5]) # (x_dest, y_dest, notation, capturing, origin)
 
-    # binding.pry if fresh_input == 'cb2'
+    # binding.pry if fresh_input == 'Qe2'
 
     return false if piece.nil?
 
@@ -64,17 +64,21 @@ class Chess < Board
   # if check is true, will check if capture of the king can be blocked
   # by defending pieces
   def checkmate?
+    # binding.pry if @last_move[1] == [3, 3]
+
     return false unless @check
+
+    return true if @captured.any? { |piece| piece.instance_of?(King) }
 
     # path of last piece to the opponet's king
     king = get_rival_king(@last_move[2])
     initial_pos = @last_move[1]
     final_pos = king.position
-    if @last_move[2].instance_of?(Knight)
-      path = initial_pos
-    else
-      path = blocks_in_path(initial_pos, final_pos)
-    end
+    path = if @last_move[2].instance_of?(Knight)
+             initial_pos
+           else
+             blocks_in_path(initial_pos, final_pos)
+           end
     king_defend!(king, path) && defend_king!(king, path)
   end
 
@@ -102,21 +106,21 @@ class Chess < Board
   end
 
   def blocks_in_path(initial_pos, final_pos)
-    if (final_pos[0] - initial_pos[0]).zero?
-      y = 0
-    elsif (final_pos[0] - initial_pos[0]).negative?
-      y = -1
-    else
-      y = 1
-    end
+    y = if (final_pos[0] - initial_pos[0]).zero?
+          0
+        elsif (final_pos[0] - initial_pos[0]).negative?
+          -1
+        else
+          1
+        end
 
-    if (final_pos[1] - initial_pos[1]).zero?
-      x = 0
-    elsif (final_pos[1] - initial_pos[1]).negative?
-      x = -1
-    else
-      x = 1
-    end
+    x = if (final_pos[1] - initial_pos[1]).zero?
+          0
+        elsif (final_pos[1] - initial_pos[1]).negative?
+          -1
+        else
+          1
+        end
 
     moves = []
     until initial_pos == final_pos
@@ -180,7 +184,7 @@ class Chess < Board
     capture = @grid[y_dest][x_dest]
     unless capture.nil?
       @all_pieces[@current_player[:pieces]].delete(capture)
-      @captured << capture.position
+      @captured << capture
       # @captured << "#{capture.type} #{capture.class}"
     end
 
@@ -191,11 +195,12 @@ class Chess < Board
   def get_piece(x_dest, y_dest, notation, capturing, origin)
     get = nil
     @all_pieces[@current_player[:pieces]].each do |piece|
+      # binding.pry if [x_dest, y_dest, notation, capturing, origin] == [4, 1, "Q", false, nil] && piece.instance_of?(Queen)
+
       next unless piece.notation == notation &&
                   piece.moves(@grid).include?([y_dest, x_dest, capturing]) &&
                   (origin.nil? || piece.position.include?(origin))
 
-      #binding.pry if [x_dest, y_dest, notation, capturing, origin] == [1, 1, "P", false, 2]
       check_pawn(piece, y_dest) if piece.notation == 'P'
       get = piece
       break

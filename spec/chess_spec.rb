@@ -27,59 +27,30 @@ RSpec.describe Chess do
     context 'checks that correct piece gets moved to the position:' do
       game = Chess.new('bruno', 'giu')
       it 'bug 1, pawn moves back' do
-        game.move_piece('a3')
-        game.move_piece('d6')
-        game.move_piece('h4')
-        game.move_piece('g6')
-        game.move_piece('b4')
-        game.move_piece('Nc6')
-        game.move_piece('c3')
-        game.move_piece('f5')
-        game.move_piece('d4')
-        game.move_piece('Nf6')
-        game.move_piece('e3')
-        game.move_piece('Ng4')
-        game.move_piece('g3')
-        game.move_piece('d5')
-        game.move_piece('f3')
-        game.move_piece('e5')
-        game.move_piece('Ra2')
-        game.move_piece('a5')
-        game.move_piece('bxa5')
-        game.move_piece('Rxa5')
-        game.move_piece('Rh2')
-        game.move_piece('Rxa3')
+        moves = %w[a3 d6 h4 g6 b4 Nc6 c3 f5 d4 Nf6 e3 Ng4
+                   g3 d5 f3 e5 Ra2 a5 bxa5 Rxa5 Rh2 Rxa3]
+        moves.each { |move| game.move_piece(move) }
         expect(game.move_piece('cb2')).to be_falsey # moves pawn to invealid location
       end
-      
+
       it 'bug 2, causes infinite loop' do
-        game.move_piece('Bb2')
-        game.move_piece('exd4')
-        game.move_piece('c4')
-        game.move_piece('Nb4')
-        game.move_piece('e4')
-        game.move_piece('Nc2')
-        puts ''
-        game.to_s
+        moves = %w[Bb2 exd4 c4 Nb4 e4 Nc2]
+        moves.each { |move| game.move_piece(move) }
         expect(game.checkmate?).to be_falsey # moves knight into check and causes an infinite loop
       end
 
       it 'bug 3, causes infinite loop' do
-        game = Chess.new('bruno', 'giu')
-        game.move_piece('b4')
-        game.move_piece('e5')
-        game.move_piece('Nc3')
-        game.move_piece('g5')
-        game.move_piece('d4')
-        game.move_piece('exd4')
-        game.move_piece('e3')
-        game.move_piece('g4')
-        game.move_piece('exd4')
-        game.move_piece('Ke7')
-        game.move_piece('Qe2')
-        puts ''
-        game.to_s
-        expect(game.checkmate?).to be_falsey # moves knight into check and causes an infinite loop
+        game2 = Chess.new('bruno', 'giu')
+        moves = %w[b4 e5 Nc3 g5 d4 exd4 g4 Ke7 e3 a6 exd4]
+        moves.each { |move| game2.move_piece(move) }
+        expect(game2.checkmate?).to be_falsey
+      end
+
+      it 'bug 4, does not recognize checkmate if king is captured' do
+        game3 = Chess.new('bruno', 'giu')
+        moves = %w[e4 f5 exf5 e6 f6 Ke7 fxe7]
+        moves.each { |move| game3.move_piece(move) }
+        expect(game3.checkmate?).to be_truthy # moves knight into check and causes an infinite loop
       end
     end
 
