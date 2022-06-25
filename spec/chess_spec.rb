@@ -24,6 +24,31 @@ RSpec.describe Chess do
       end
     end
 
+    context 'checks that correct piece gets moved to the position:' do
+      game = Chess.new('bruno', 'giu')
+      it 'bug' do
+        game.move_piece('a3')
+        game.move_piece('d6')
+        game.move_piece('h4')
+        game.move_piece('g6')
+        game.move_piece('b4')
+        game.move_piece('Nc6')
+        game.move_piece('c3')
+        game.move_piece('f5')
+        game.move_piece('d4')
+        game.move_piece('Nf6')
+        game.move_piece('e3')
+        game.move_piece('Ng4')
+        game.move_piece('g3')
+        game.move_piece('d5')
+        game.move_piece('f3')
+        game.move_piece('e5')
+        puts ''
+        game.to_s
+        expect(game.move_piece('b3')).to eq('BUG!')
+      end
+    end
+
     context 'returns true if it can make a move, false otherwise:' do
       game = Chess.new('bruno', 'giu')
       it 'illegal white king to d6' do
@@ -157,7 +182,7 @@ RSpec.describe Chess do
       end
     end
   end
-  
+
   describe '#checkmate' do
     context 'true if move causes checkmate:' do
       it 'check, but rook can defend, returns false' do
@@ -168,9 +193,6 @@ RSpec.describe Chess do
         game.move_piece('a6')
         game.move_piece('h4')
         game.move_piece('Qxh4')
-    
-        puts ''
-        game.to_s
         expect(game.checkmate?).to be_falsey
       end
 
