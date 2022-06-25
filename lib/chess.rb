@@ -103,23 +103,22 @@ class Chess < Board
 
   def blocks_in_path(initial_pos, final_pos)
     if (final_pos[0] - initial_pos[0]).zero?
-      x = 0
-    elsif (final_pos[0] - initial_pos[0]).negative?
-      x = -1
-    else
-      x = 1
-    end
-
-    if (final_pos[1] - initial_pos[1]).zero?
       y = 0
-    elsif (final_pos[1] - initial_pos[1]).negative?
+    elsif (final_pos[0] - initial_pos[0]).negative?
       y = -1
     else
       y = 1
     end
 
+    if (final_pos[1] - initial_pos[1]).zero?
+      x = 0
+    elsif (final_pos[1] - initial_pos[1]).negative?
+      x = -1
+    else
+      x = 1
+    end
+
     moves = []
-    # binding.pry
     until initial_pos == final_pos
       moves << initial_pos
       initial_pos = [initial_pos[0] + y, initial_pos[1] + x]
@@ -227,34 +226,3 @@ class Chess < Board
     pawn.first_move = false
   end
 end
-
-game = Chess.new('bruno', 'giu')
-game.move_piece('a3')
-game.move_piece('d6')
-game.move_piece('h4')
-game.move_piece('g6')
-game.move_piece('b4')
-game.move_piece('Nc6')
-game.move_piece('c3')
-game.move_piece('f5')
-game.move_piece('d4')
-game.move_piece('Nf6')
-game.move_piece('e3')
-game.move_piece('Ng4')
-game.move_piece('g3')
-game.move_piece('d5')
-game.move_piece('f3')
-game.move_piece('e5')
-game.move_piece('Ra2')
-game.move_piece('a5')
-game.move_piece('bxa5')
-game.move_piece('Rxa5')
-game.move_piece('Rh2')
-game.move_piece('Rxa3')
-game.move_piece('Bb2')
-game.move_piece('exd4')
-game.move_piece('c4')
-game.move_piece('Nb4')
-game.move_piece('e4')
-game.move_piece('Nc2')
-p game.checkmate?
