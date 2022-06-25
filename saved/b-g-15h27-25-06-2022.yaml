@@ -1,23 +1,23 @@
 --- !ruby/object:Chess
-player1: &33
-  :name: ronaldo
+player1:
+  :name: b
   :pieces: :white
-player2:
-  :name: bruno
+player2: &44
+  :name: g
   :pieces: :black
 grid:
-- -
-  - &14 !ruby/object:Knight
+- - &19 !ruby/object:Rook
     type: :white
     position:
     - 0
-    - 1
-    notation: N
+    - 0
+    notation: R
     parent:
     children: []
-    unicode: "♘"
+    unicode: "♖"
     first_move: false
-  - &16 !ruby/object:Bishop
+  -
+  - &25 !ruby/object:Bishop
     type: :white
     position:
     - 0
@@ -27,17 +27,8 @@ grid:
     children: []
     unicode: "♗"
     first_move: false
-  - &12 !ruby/object:Queen
-    type: :white
-    position:
-    - 0
-    - 3
-    notation: Q
-    parent:
-    children: []
-    unicode: "♕"
-    first_move: false
-  - &13 !ruby/object:King
+  -
+  - &22 !ruby/object:King
     type: :white
     position:
     - 0
@@ -47,7 +38,7 @@ grid:
     children: []
     unicode: "♔"
     first_move: false
-  - &17 !ruby/object:Bishop
+  - &26 !ruby/object:Bishop
     type: :white
     position:
     - 0
@@ -57,7 +48,7 @@ grid:
     children: []
     unicode: "♗"
     first_move: false
-  - &15 !ruby/object:Knight
+  - &24 !ruby/object:Knight
     type: :white
     position:
     - 0
@@ -67,7 +58,7 @@ grid:
     children: []
     unicode: "♘"
     first_move: false
-  - &11 !ruby/object:Rook
+  - &20 !ruby/object:Rook
     type: :white
     position:
     - 0
@@ -77,260 +68,262 @@ grid:
     children: []
     unicode: "♖"
     first_move: false
-- -
-  -
-  - &29 !ruby/object:Knight
-    type: :black
-    position:
-    - 1
-    - 2
-    notation: N
-    parent:
-    children: []
-    unicode: "♞"
-    first_move: false
-  - &5 !ruby/object:Pawn
+- - &12 !ruby/object:Pawn
     type: :white
-    position:
-    - 1
-    - 3
-    notation: P
-    parent:
-    children: []
-    unicode: "♙"
-    initial_pos:
-    - 1
-    - 2
-    first_move: false
-    en_passant: false
-  -
-  -
-  -
-  - &10 !ruby/object:Rook
-    type: :white
-    position:
-    - 1
-    - 7
-    notation: R
-    parent:
-    children: []
-    unicode: "♖"
-    first_move: false
-- -
-  - &4 !ruby/object:Pawn
-    type: :white
-    position:
-    - 2
-    - 1
-    notation: P
-    parent:
-    children: []
-    unicode: "♙"
-    initial_pos:
-    - 1
-    - 0
-    first_move: false
-    en_passant: false
-  -
-  -
-  - &6 !ruby/object:Pawn
-    type: :white
-    position:
-    - 2
-    - 4
-    notation: P
-    parent:
-    children: []
-    unicode: "♙"
-    initial_pos:
-    - 1
-    - 4
-    first_move: false
-    en_passant: false
-  - &7 !ruby/object:Pawn
-    type: :white
-    position:
-    - 2
-    - 5
-    notation: P
-    parent:
-    children: []
-    unicode: "♙"
-    initial_pos:
-    - 1
-    - 5
-    first_move: false
-    en_passant: false
-  - &8 !ruby/object:Pawn
-    type: :white
-    position:
-    - 2
-    - 6
-    notation: P
-    parent:
-    children: []
-    unicode: "♙"
-    initial_pos:
-    - 1
-    - 6
-    first_move: false
-    en_passant: false
-  -
-- -
-  -
-  -
-  - &18 !ruby/object:Pawn
-    type: :black
-    position:
-    - 3
-    - 3
-    notation: P
-    parent:
-    children: []
-    unicode: "♟"
-    initial_pos:
-    - 6
-    - 0
-    first_move: false
-    en_passant: false
-  -
-  -
-  - &30 !ruby/object:Knight
-    type: :black
-    position:
-    - 3
-    - 6
-    notation: N
-    parent:
-    children: []
-    unicode: "♞"
-    first_move: false
-  - &9 !ruby/object:Pawn
-    type: :white
-    position:
-    - 3
-    - 7
-    notation: P
-    parent:
-    children: []
-    unicode: "♙"
-    initial_pos:
-    - 1
-    - 7
-    first_move: false
-    en_passant: true
-- -
-  -
-  -
-  - &21 !ruby/object:Pawn
-    type: :black
-    position:
-    - 4
-    - 3
-    notation: P
-    parent:
-    children: []
-    unicode: "♟"
-    initial_pos:
-    - 6
-    - 3
-    first_move: false
-    en_passant: false
-  - &22 !ruby/object:Pawn
-    type: :black
-    position:
-    - 4
-    - 4
-    notation: P
-    parent:
-    children: []
-    unicode: "♟"
-    initial_pos:
-    - 6
-    - 4
-    first_move: false
-    en_passant: true
-  - &23 !ruby/object:Pawn
-    type: :black
-    position:
-    - 4
-    - 5
-    notation: P
-    parent:
-    children: []
-    unicode: "♟"
-    initial_pos:
-    - 6
-    - 5
-    first_move: false
-    en_passant: true
-  -
-  -
-- -
-  -
-  -
-  -
-  -
-  -
-  - &24 !ruby/object:Pawn
-    type: :black
-    position:
-    - 5
-    - 6
-    notation: P
-    parent:
-    children: []
-    unicode: "♟"
-    initial_pos:
-    - 6
-    - 6
-    first_move: false
-    en_passant: false
-  -
-- -
-  - &19 !ruby/object:Pawn
-    type: :black
     position: &1
-    - 6
     - 1
+    - 0
     notation: P
     parent:
     children: []
-    unicode: "♟"
+    unicode: "♙"
     initial_pos: *1
     first_move: true
     en_passant: false
-  - &20 !ruby/object:Pawn
-    type: :black
+  -
+  - &14 !ruby/object:Pawn
+    type: :white
     position: &2
-    - 6
+    - 1
     - 2
     notation: P
     parent:
     children: []
-    unicode: "♟"
+    unicode: "♙"
     initial_pos: *2
     first_move: true
     en_passant: false
   -
-  -
-  -
-  -
-  - &25 !ruby/object:Pawn
-    type: :black
+  - &21 !ruby/object:Queen
+    type: :white
+    position:
+    - 1
+    - 4
+    notation: Q
+    parent:
+    children: []
+    unicode: "♕"
+    first_move: false
+  - &16 !ruby/object:Pawn
+    type: :white
     position: &3
+    - 1
+    - 5
+    notation: P
+    parent:
+    children: []
+    unicode: "♙"
+    initial_pos: *3
+    first_move: true
+    en_passant: false
+  - &17 !ruby/object:Pawn
+    type: :white
+    position: &4
+    - 1
+    - 6
+    notation: P
+    parent:
+    children: []
+    unicode: "♙"
+    initial_pos: *4
+    first_move: true
+    en_passant: false
+  - &18 !ruby/object:Pawn
+    type: :white
+    position: &5
+    - 1
+    - 7
+    notation: P
+    parent:
+    children: []
+    unicode: "♙"
+    initial_pos: *5
+    first_move: true
+    en_passant: false
+- -
+  -
+  - &23 !ruby/object:Knight
+    type: :white
+    position:
+    - 2
+    - 2
+    notation: N
+    parent:
+    children: []
+    unicode: "♘"
+    first_move: false
+  -
+  -
+  -
+  -
+  -
+- -
+  - &13 !ruby/object:Pawn
+    type: :white
+    position:
+    - 3
+    - 1
+    notation: P
+    parent:
+    children: []
+    unicode: "♙"
+    initial_pos:
+    - 1
+    - 1
+    first_move: true
+    en_passant: true
+  -
+  - &15 !ruby/object:Pawn
+    type: :white
+    position:
+    - 3
+    - 3
+    notation: P
+    parent:
+    children: []
+    unicode: "♙"
+    initial_pos:
+    - 1
+    - 4
+    first_move: false
+    en_passant: false
+  -
+  -
+  - &32 !ruby/object:Pawn
+    type: :black
+    position:
+    - 3
+    - 6
+    notation: P
+    parent:
+    children: []
+    unicode: "♟"
+    initial_pos:
+    - 6
+    - 6
+    first_move: false
+    en_passant: false
+  -
+- -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+- -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+- - &27 !ruby/object:Pawn
+    type: :black
+    position: &6
+    - 6
+    - 0
+    notation: P
+    parent:
+    children: []
+    unicode: "♟"
+    initial_pos: *6
+    first_move: true
+    en_passant: false
+  - &28 !ruby/object:Pawn
+    type: :black
+    position: &7
+    - 6
+    - 1
+    notation: P
+    parent:
+    children: []
+    unicode: "♟"
+    initial_pos: *7
+    first_move: true
+    en_passant: false
+  - &29 !ruby/object:Pawn
+    type: :black
+    position: &8
+    - 6
+    - 2
+    notation: P
+    parent:
+    children: []
+    unicode: "♟"
+    initial_pos: *8
+    first_move: true
+    en_passant: false
+  - &30 !ruby/object:Pawn
+    type: :black
+    position: &9
+    - 6
+    - 3
+    notation: P
+    parent:
+    children: []
+    unicode: "♟"
+    initial_pos: *9
+    first_move: true
+    en_passant: false
+  - &37 !ruby/object:King
+    type: :black
+    position:
+    - 6
+    - 4
+    notation: K
+    parent:
+    children: []
+    unicode: "♚"
+    first_move: false
+  - &31 !ruby/object:Pawn
+    type: :black
+    position: &10
+    - 6
+    - 5
+    notation: P
+    parent:
+    children: []
+    unicode: "♟"
+    initial_pos: *10
+    first_move: true
+    en_passant: false
+  -
+  - &33 !ruby/object:Pawn
+    type: :black
+    position: &11
     - 6
     - 7
     notation: P
     parent:
     children: []
     unicode: "♟"
-    initial_pos: *3
+    initial_pos: *11
     first_move: true
     en_passant: false
-- -
-  -
-  - &31 !ruby/object:Bishop
+- - &34 !ruby/object:Rook
+    type: :black
+    position:
+    - 7
+    - 0
+    notation: R
+    parent:
+    children: []
+    unicode: "♜"
+    first_move: false
+  - &38 !ruby/object:Knight
+    type: :black
+    position:
+    - 7
+    - 1
+    notation: N
+    parent:
+    children: []
+    unicode: "♞"
+    first_move: false
+  - &40 !ruby/object:Bishop
     type: :black
     position:
     - 7
@@ -340,7 +333,7 @@ grid:
     children: []
     unicode: "♝"
     first_move: false
-  - &27 !ruby/object:Queen
+  - &36 !ruby/object:Queen
     type: :black
     position:
     - 7
@@ -350,17 +343,8 @@ grid:
     children: []
     unicode: "♛"
     first_move: false
-  - &28 !ruby/object:King
-    type: :black
-    position:
-    - 7
-    - 4
-    notation: K
-    parent:
-    children: []
-    unicode: "♚"
-    first_move: false
-  - &32 !ruby/object:Bishop
+  -
+  - &41 !ruby/object:Bishop
     type: :black
     position:
     - 7
@@ -370,8 +354,17 @@ grid:
     children: []
     unicode: "♝"
     first_move: false
-  -
-  - &26 !ruby/object:Rook
+  - &39 !ruby/object:Knight
+    type: :black
+    position:
+    - 7
+    - 6
+    notation: N
+    parent:
+    children: []
+    unicode: "♞"
+    first_move: false
+  - &35 !ruby/object:Rook
     type: :black
     position:
     - 7
@@ -383,25 +376,12 @@ grid:
     first_move: false
 all_pieces:
   :white:
-  - *4
+  - *12
+  - *13
+  - *14
   - !ruby/object:Pawn
     type: :white
-    position:
-    - 4
-    - 0
-    notation: P
-    parent:
-    children: []
-    unicode: "♙"
-    initial_pos:
-    - 1
-    - 1
-    first_move: false
-    en_passant: false
-  - *5
-  - !ruby/object:Pawn
-    type: :white
-    position:
+    position: &42
     - 3
     - 3
     notation: P
@@ -413,19 +393,9 @@ all_pieces:
     - 3
     first_move: false
     en_passant: true
-  - *6
-  - *7
-  - *8
-  - *9
-  - *10
-  - *11
-  - *12
-  - *13
-  - *14
   - *15
   - *16
   - *17
-  :black:
   - *18
   - *19
   - *20
@@ -434,62 +404,57 @@ all_pieces:
   - *23
   - *24
   - *25
-  - !ruby/object:Rook
-    type: :black
-    position:
-    - 2
-    - 0
-    notation: R
-    parent:
-    children: []
-    unicode: "♜"
-    first_move: false
   - *26
+  :black:
   - *27
   - *28
   - *29
   - *30
+  - !ruby/object:Pawn
+    type: :black
+    position: &43
+    - 3
+    - 3
+    notation: P
+    parent:
+    children: []
+    unicode: "♟"
+    initial_pos:
+    - 6
+    - 4
+    first_move: false
+    en_passant: false
   - *31
   - *32
+  - *33
+  - *34
+  - *35
+  - *36
+  - *37
+  - *38
+  - *39
+  - *40
+  - *41
 last_move:
-- - 3
-  - 1
+- - 0
+  - 3
 - - 1
-  - 2
-- *29
+  - 4
+- *21
 all_moves:
-- a3
-- d6
-- h4
-- g6
 - b4
-- Nc6
-- c3
-- f5
-- d4
-- Nf6
-- e3
-- Ng4
-- g3
-- d5
-- f3
 - e5
-- Ra2
-- a5
-- bxa5
-- Rxa5
-- Rh2
-- Rxa3
-- cb2
+- Nc3
+- g5
+- d4
 - exd4
-- Bcd2
-- Nb4
-- b3
-- Nc2+
+- e3
+- g4
+- exd4
+- Ke7
+- Qe2+
 captured:
-- black Pawn
-- white Pawn
-- white Pawn
-- white Pawn
-current_player: *33
+- *42
+- *43
+current_player: *44
 check: true

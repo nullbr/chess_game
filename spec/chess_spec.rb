@@ -49,18 +49,37 @@ RSpec.describe Chess do
         game.move_piece('Rxa5')
         game.move_piece('Rh2')
         game.move_piece('Rxa3')
-        puts ''
-        game.to_s
         expect(game.move_piece('cb2')).to be_falsey # moves pawn to invealid location
       end
-
+      
       it 'bug 2, causes infinite loop' do
         game.move_piece('Bb2')
         game.move_piece('exd4')
-        game.move_piece('b3')
+        game.move_piece('c4')
         game.move_piece('Nb4')
         game.move_piece('e4')
-        expect(game.move_piece('Nc2')).to be_truthy # moves knight into check and causes an infinite loop
+        game.move_piece('Nc2')
+        puts ''
+        game.to_s
+        expect(game.checkmate?).to be_falsey # moves knight into check and causes an infinite loop
+      end
+
+      it 'bug 3, causes infinite loop' do
+        game = Chess.new('bruno', 'giu')
+        game.move_piece('b4')
+        game.move_piece('e5')
+        game.move_piece('Nc3')
+        game.move_piece('g5')
+        game.move_piece('d4')
+        game.move_piece('exd4')
+        game.move_piece('e3')
+        game.move_piece('g4')
+        game.move_piece('exd4')
+        game.move_piece('Ke7')
+        game.move_piece('Qe2')
+        puts ''
+        game.to_s
+        expect(game.checkmate?).to be_falsey # moves knight into check and causes an infinite loop
       end
     end
 

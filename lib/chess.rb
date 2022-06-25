@@ -16,6 +16,7 @@ class Chess < Board
   def initialize(player1, player2 = nil)
     super(player1, player2)
     @current_player = @player1
+    @check = false
   end
 
   def move_piece(input)
@@ -52,25 +53,28 @@ class Chess < Board
   # checks if last piece can capture the opponent's king
   def check?
     last_piece = @last_move[2]
-    return false if last_piece.nil?
+    return @check = false if last_piece.nil?
 
     king = get_rival_king(last_piece)
     capturing_moves = last_piece.moves(@grid).select { |move| move[2] == true }
     position = king.position[0..1] + [true]
-    capturing_moves.include?(position)
+    @check = capturing_moves.include?(position)
   end
 
   # if check is true, will check if capture of the king can be blocked
   # by defending pieces
   def checkmate?
-    return false unless check?
+    return false unless @check
 
     # path of last piece to the opponet's king
     king = get_rival_king(@last_move[2])
     initial_pos = @last_move[1]
     final_pos = king.position
-    path = blocks_in_path(initial_pos, final_pos)
-
+    if @last_move[2].instance_of?(Knight)
+      path = initial_pos
+    else
+      path = blocks_in_path(initial_pos, final_pos)
+    end
     king_defend!(king, path) && defend_king!(king, path)
   end
 
@@ -98,23 +102,24 @@ class Chess < Board
   end
 
   def blocks_in_path(initial_pos, final_pos)
-    y = if (final_pos[0] - initial_pos[0]).zero?
-          0
-        elsif (final_pos[0] - initial_pos[0]).negative?
-          -1
-        else
-          1
-        end
+    if (final_pos[0] - initial_pos[0]).zero?
+      x = 0
+    elsif (final_pos[0] - initial_pos[0]).negative?
+      x = -1
+    else
+      x = 1
+    end
 
-    x = if (final_pos[1] - initial_pos[1]).zero?
-          0
-        elsif (final_pos[1] - initial_pos[1]).negative?
-          -1
-        else
-          1
-        end
+    if (final_pos[1] - initial_pos[1]).zero?
+      y = 0
+    elsif (final_pos[1] - initial_pos[1]).negative?
+      y = -1
+    else
+      y = 1
+    end
 
     moves = []
+    # binding.pry
     until initial_pos == final_pos
       moves << initial_pos
       initial_pos = [initial_pos[0] + y, initial_pos[1] + x]
@@ -224,88 +229,32 @@ class Chess < Board
 end
 
 game = Chess.new('bruno', 'giu')
-
 game.move_piece('a3')
-puts ''
-game.to_s
 game.move_piece('d6')
-puts ''
-game.to_s
 game.move_piece('h4')
-puts ''
-game.to_s
 game.move_piece('g6')
-puts ''
-game.to_s
 game.move_piece('b4')
-puts ''
-game.to_s
 game.move_piece('Nc6')
-puts ''
-game.to_s
 game.move_piece('c3')
-puts ''
-game.to_s
 game.move_piece('f5')
-puts ''
-game.to_s
 game.move_piece('d4')
-puts ''
-game.to_s
 game.move_piece('Nf6')
-puts ''
-game.to_s
 game.move_piece('e3')
-puts ''
-game.to_s
 game.move_piece('Ng4')
-puts ''
-game.to_s
 game.move_piece('g3')
-puts ''
-game.to_s
 game.move_piece('d5')
-puts ''
-game.to_s
 game.move_piece('f3')
-puts ''
-game.to_s
 game.move_piece('e5')
-puts ''
-game.to_s
 game.move_piece('Ra2')
-puts ''
-game.to_s
 game.move_piece('a5')
-puts ''
-game.to_s
 game.move_piece('bxa5')
-puts ''
-game.to_s
 game.move_piece('Rxa5')
-puts ''
-game.to_s
 game.move_piece('Rh2')
-puts ''
-game.to_s
 game.move_piece('Rxa3')
-puts ''
-game.to_s
 game.move_piece('Bb2')
-puts ''
-game.to_s
 game.move_piece('exd4')
-puts ''
-game.to_s
 game.move_piece('c4')
-puts ''
-game.to_s
 game.move_piece('Nb4')
-puts ''
-game.to_s
 game.move_piece('e4')
-puts ''
-game.to_s
 game.move_piece('Nc2')
-puts ''
-game.to_s
+p game.checkmate?

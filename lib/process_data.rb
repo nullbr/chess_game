@@ -25,9 +25,7 @@ module ProcessData
   def load_game(filename)
     Psych.load_file(
       filename,
-      aliases: true,
-      permitted_classes: [Chess, Symbol, Rook, Bishop, Pawn, Queen, King, Knight]
-    )
+      )
   end
 
   def get_input(lang, options = ' ')
