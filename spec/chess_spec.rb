@@ -26,7 +26,7 @@ RSpec.describe Chess do
 
     context 'checks that correct piece gets moved to the position:' do
       game = Chess.new('bruno', 'giu')
-      it 'bug' do
+      it 'bug 1' do
         game.move_piece('a3')
         game.move_piece('d6')
         game.move_piece('h4')
@@ -43,9 +43,21 @@ RSpec.describe Chess do
         game.move_piece('d5')
         game.move_piece('f3')
         game.move_piece('e5')
+        game.move_piece('Ra2')
+        game.move_piece('a5')
+        game.move_piece('bxa5')
+        game.move_piece('Rxa5')
+        game.move_piece('Rh2')
+        game.move_piece('Rxa3')
+        expect(game.move_piece('cb2')).to be_falsey # moves pawn to invealid location
+      end
+
+      it 'bug 2' do
+        game.move_piece('Bb2')
+        
         puts ''
         game.to_s
-        expect(game.move_piece('b3')).to eq('BUG!')
+        expect(game.move_piece('cb2')).to be_falsey # moves pawn to invealid location
       end
     end
 
