@@ -55,8 +55,16 @@ end
 while game.checkmate? == false
   puts ''
   game.to_s
-  puts "\nCheck!\n" if game.check?
-  puts "#{game.current_player[:name]}'s (#{game.current_player[:pieces]}) move:"
+  puts "Moves: #{game.all_moves.join(', ')}"
+  print lang.zero? ? 'Captures: ' : 'Capturados: '
+  game.captured.each do |capture|
+    print "#{capture.class}(#{capture.type})"
+    print ', ' unless capture == game.captured[-1]
+  end
+  puts ''
+
+  puts "\nCheck!" if game.check?
+  print "\n#{game.current_player[:name]} (#{game.current_player[:pieces]}) move: "
   input = get_input(lang)
   game.move_piece(input)
   save_game(game, filename)
@@ -64,5 +72,7 @@ while game.checkmate? == false
 end
 
 File.delete(filename) if File.exist?(filename)
+
+game.to_s
 puts 'Checkmate!'
-puts "#{game.next_player} won!"
+puts "#{game.next_player[:name]} won!"

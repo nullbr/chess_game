@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'board'
+require 'pry'
 
 # main driver class frot the chess game
 class Chess < Board
@@ -25,7 +26,7 @@ class Chess < Board
 
     piece = get_piece(input[0], input[1], input[2], input[3], input[5]) # (x_dest, y_dest, notation, capturing, origin)
 
-    # binding.pry if fresh_input == 'Qe2'
+    # binding.pry if fresh_input == 'fxe7'
 
     return false if piece.nil?
 
@@ -65,20 +66,23 @@ class Chess < Board
   def checkmate?
     # binding.pry if @last_move[1] == [3, 3]
 
-    return false unless @check
+    if @captured.any? { |piece| piece.instance_of?(King) }
+      true
+    elsif @check
+      # path of last piece to the opponet's king
+      king = get_rival_king(@last_move[2])
+      initial_pos = @last_move[1]
+      final_pos = king.position
+      path = @last_move[2].instance_of?(Knight) ? initial_pos : blocks_in_path(initial_pos, final_pos)
 
-    return true if @captured.any? { |piece| piece.instance_of?(King) }
+      king_defend!(king, path) && defend_king!(king, path)
+    else
+      false
+    end
+  end
 
-    # path of last piece to the opponet's king
-    king = get_rival_king(@last_move[2])
-    initial_pos = @last_move[1]
-    final_pos = king.position
-    path = if @last_move[2].instance_of?(Knight)
-             initial_pos
-           else
-             blocks_in_path(initial_pos, final_pos)
-           end
-    king_defend!(king, path) && defend_king!(king, path)
+  def next_player
+    @current_player = @current_player == @player1 ? @player2 : @player1
   end
 
   private
@@ -214,10 +218,6 @@ class Chess < Board
       input += '+'
     end
     @all_moves << input
-  end
-
-  def next_player
-    @current_player = @current_player == @player1 ? @player2 : @player1
   end
 
   def check_pawn(pawn, y_dest)
