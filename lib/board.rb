@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '.bundle/ruby/2.5.0/gems/colorize-0.8.1/lib/colorize.rb'
+require './.bundle/ruby/2.5.0/gems/colorize-0.8.1/lib/colorize.rb'
 require_relative 'king'
 require_relative 'queen'
 require_relative 'knight'
