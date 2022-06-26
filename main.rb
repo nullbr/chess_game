@@ -9,7 +9,8 @@ puts 'Chess'.art
 puts "\t\t   Bruno Leite"
 puts "\nLets Play!"
 
-lang = get_input(lang, [0, 1]) { puts "What language would you like to play in?\n0: English\n1: Português" }
+puts "What language would you like to play in?\n0: English\n1: Português"
+lang = get_input(0, [0, 1])
 
 if Dir.exist?('saved') && Dir.entries('saved').size > 2
   if lang.zero?
