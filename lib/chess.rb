@@ -65,6 +65,7 @@ class Chess < Board
   # by defending pieces
   def checkmate?
     # binding.pry if @last_move[1] == [3, 3]
+    check? if @check == true
 
     if @captured.any? { |piece| piece.instance_of?(King) }
       true
