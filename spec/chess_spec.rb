@@ -56,12 +56,19 @@ RSpec.describe Chess do
       it 'bug 5, runs into infinite loop' do
         game4 = Chess.new('bruno', 'giu')
         moves = %w[a3 d6 h4 g6 b4 Nc6 c3 f5 d4 Nf6 e3 Ng4 g3 d5 f3 e5 Ra2 a5 bxa5 Rxa5 Rh2 Rxa3 Bb2 exd4 cxd4 Nb4 Ra8 Nc2]
+        moves.each { |move| game3.move_piece(move) }
+        expect(game4.checkmate?).to be_truthy
+      end
+
+      it 'bug 6, runs into infinite loop' do
+        game5 = Chess.new('bruno', 'giu')
+        moves = %w[b4 e5 Nc3 g5 d4 exd4 g4 Ke7 e4 a6 b5 Kf6 Qf3+ d5]
         moves.each do |move|
           p move
-          game4.move_piece(move)
-          game4.to_s
+          game5.move_piece(move)
+          game5.to_s
         end
-        expect(game4.checkmate?).to be_truthy
+        expect(game5.checkmate?).to be_truthy
       end
     end
 
