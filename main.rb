@@ -64,7 +64,8 @@ while game.checkmate? == false
   puts ''
 
   puts "\nCheck!" if game.check?
-  print "\n#{game.current_player[:name]} (#{game.current_player[:pieces]}) move: "
+  print "\n#{game.current_player[:name]} (#{game.current_player[:pieces]}) move "
+  print lang.zero? ? "('help' for instructions): " : "('ajuda' para instruções): "
   input = get_input(lang)
   game.move_piece(input)
   save_game(game, filename)

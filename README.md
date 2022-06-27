@@ -10,11 +10,18 @@ A classic Chess game, written in ruby. The final TOP project in the ruby curricu
 
 If you’ve never played, be sure to read up on the rules (see the [Wikipedia Page](https://en.wikipedia.org/wiki/Chess)) first. Also checkout [Chess.com](https://www.chess.com/learn-how-to-play-chess)
 
-The game is played using chess notation, here's a few examples:
+The game is played using chess notation
+
+K: King, Q: Queen, B: Bishop, R: Rook, N: Knight, P: Pawn
+
+x: Capturing, =: Promoting to , +: Check, #: Checkmate
+
+Here's a few examples:
 
 ```
-   Qd7+ | Queen to d7, + representing a check
      e4 | Pawn (P ommited) to e4
+    Nc4 | Knight to c4
+   Qd7+ | Queen to d7, + representing a check
   Kxb5# | King captures at b5, # representing a checkmate
    exf6 | Pawn (from column e) captures at f6
  fxg7=Q | Pawn (from column f) captures at g7 and gets promoted to a Queen
