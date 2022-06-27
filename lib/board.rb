@@ -34,9 +34,9 @@ class Board
         if row == @last_move[0][0] && column == @last_move[0][1] || row == @last_move[1][0] && column == @last_move[1][1]
           print block.black.on_light_cyan
         elsif row.even?
-          print column.even? ? block.on_light_white : block.on_white
+          print column.even? ? block.on_light_white : block.on_green
         else
-          print column.odd? ? block.on_light_white : block.on_white
+          print column.odd? ? block.on_light_white : block.on_green
         end
       end
       print "\n"
