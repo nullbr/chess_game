@@ -1,10 +1,13 @@
-## Chess
+## [Chess](https://replit.com/@nullbr/chessgame)
 
-A classic Chess game, written in ruby. The final TOP project in the ruby curriculum
+A classic Chess game, written in Ruby. The final TOP project in the ruby curriculum. Play it at [Replit](https://replit.com/@nullbr/chessgame)!
 
-[![wakatime](https://wakatime.com/badge/user/9450441a-ff7b-4805-b841-897d35ef3820/project/1fb3568a-af51-42c5-abbe-ea624d96a793.svg)](https://wakatime.com/badge/user/9450441a-ff7b-4805-b841-897d35ef3820/project/1fb3568a-af51-42c5-abbe-ea624d96a793)
+<div style="display: inline_block">
 
-![Screenshot from 2022-06-16 17-54-52](https://user-images.githubusercontent.com/94543524/174162026-e5cc0433-c411-4253-9a22-e1dddf8ee4dc.png)
+  <a href="https://rubyonrails.org" target="_blank"><img alt="Ruby" width="31%" src="https://user-images.githubusercontent.com/94543524/176027193-9a1a208f-87b0-4675-8bbb-5b7100d6cabb.jpg"></a>
+  <a href="https://rubyonrails.org" target="_blank"><img alt="Ruby" width="65%" src="https://user-images.githubusercontent.com/94543524/176027212-5d367530-d76e-4120-8325-1cf1fc20ab3e.jpg"></a>
+  
+</div>
 
 ## Rules
 
