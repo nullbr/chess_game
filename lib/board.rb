@@ -98,5 +98,5 @@ class Board
 end
 
 board = Board.new('bruno')
-
+puts ''
 board.to_s
