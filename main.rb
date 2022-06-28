@@ -1,6 +1,8 @@
 require_relative '.bundle/ruby/2.5.0/gems/ruby_figlet-0.6.1/lib/ruby_figlet'
 require_relative 'lib/chess'
 require_relative 'lib/process_data'
+require_relative 'lib/ai'
+require 'pry'
 
 using RubyFiglet # For String.new(...).art / .art! Moneky Patches
 include ProcessData
@@ -25,13 +27,20 @@ end
 
 # Start a new game
 if choice.zero?
+  puts lang.zero? ? "\n0: Human vs Human\n1: Human vs AI" : "\n0: Humano vs Humano\n1: Humano vs AI"
+  game_type = get_input(lang, [0, 1])
+
   puts lang.zero? ? "\nName of Player 1" : "\nNome do jogador 1"
   player1 = get_input(lang)
 
-  puts lang.zero? ? "\nName of Player 2" : "\nNome do jogador 2"
-  player2 = get_input(lang)
+  if game_type.zero?
+    puts lang.zero? ? "\nName of Player 2" : "\nNome do jogador 2"
+    player2 = get_input(lang)
+  else
+    player2 = AI.new
+  end
 
-  game = Chess.new(player1, player2)
+  game = Chess.new(player1, player2.instance_of?(AI) ? 'Machine' : player2)
   system 'clear'
 
   # Set new file to be used for saving the game
@@ -57,6 +66,7 @@ while game.checkmate? == false
   game.to_s
   puts "Moves: #{game.all_moves.join(', ')}"
   print lang.zero? ? 'Captures: ' : 'Capturados: '
+  
   game.captured.each do |capture|
     print "#{capture.class}(#{capture.type})"
     print ', ' unless capture == game.captured[-1]
@@ -66,7 +76,19 @@ while game.checkmate? == false
   puts "\nCheck!" if game.check?
   print "\n#{game.current_player[:name]} (#{game.current_player[:pieces]}) move "
   print lang.zero? ? "('help' for instructions): " : "('ajuda' para instruções): "
-  input = get_input(lang)
+  
+  if game.current_player[:name] == 'Machine'
+    input = player2.random_move(game.all_pieces, game.grid)
+    print input
+    sleep 3
+  else
+    input = get_input(lang)
+  end
+
+  
+  # binding.pry
+  
+
   game.move_piece(input)
   save_game(game, filename)
   system 'clear'
