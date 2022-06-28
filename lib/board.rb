@@ -11,7 +11,7 @@ require_relative 'pawn'
 # Chess board with colorize gem
 class Board
   attr_accessor :grid
-  attr_reader :all_moves, :captured
+  attr_reader :all_moves, :captured, :all_pieces
 
   def initialize(player1, player2 = 'Computer', clean = false)
     @player1 = { name: player1, pieces: :white }
