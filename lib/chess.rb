@@ -109,7 +109,7 @@ class Chess < Board
     y = final_pos[0] - initial_pos[0]
     y /= y.abs unless y.zero?
     x = final_pos[1] - initial_pos[1]
-    x /= x.abs unless y.zero?
+    x /= x.abs unless x.zero?
 
     moves = []
     until initial_pos == final_pos
