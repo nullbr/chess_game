@@ -2,6 +2,17 @@
 
 # Artificial Inteligence
 class AI
+  attr_accessor :name
+
+  def initialize(difficulty)
+    @difficulty = difficulty # 0 = super easy, 1 = easy
+    @name = 'Machine'
+  end
+
+  def choose_move(pieces, grid)
+    random_move(pieces, grid)
+  end
+
   # calculates all possible moves and returns a randomily selected one
   def random_move(pieces, grid)
     pieces = pieces[:black]
@@ -11,7 +22,7 @@ class AI
       moves = piece.moves(grid)
       possible_moves += moves.map { |move| move + [piece.notation] } unless moves.empty?
     end
-    move = select_move(possible_moves)
+    move = select_capturing(possible_moves)
     translate(move)
   end
 
@@ -27,9 +38,9 @@ class AI
   end
 
   # choose move, select one with capturing if available
-  def select_move(possible_moves)
-    return possible_moves.sample unless possible_moves.any? { |move| move[2] == true }
-    
+  def select_capturing(possible_moves)
+    return possible_moves.sample unless @difficulty > 1 || possible_moves.any? { |move| move[2] == true }
+
     possible_moves.select { |move| move[2] == true }.sample
   end
 end

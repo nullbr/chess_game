@@ -7,15 +7,17 @@ require_relative 'knight'
 require_relative 'bishop'
 require_relative 'rook'
 require_relative 'pawn'
+require_relative 'ai'
 
 # Chess board with colorize gem
 class Board
-  attr_accessor :grid
+  attr_accessor :grid, :machine
   attr_reader :all_moves, :captured, :all_pieces
 
-  def initialize(player1, player2 = 'Computer', clean = false)
+  def initialize(player1, player2 = nil, clean = false)
     @player1 = { name: player1, pieces: :white }
-    @player2 = { name: player2, pieces: :black }
+    @machine = player2.instance_of?(AI) ? player2 : nil
+    @player2 = { name: @machine.nil? ? player2 : @machine, pieces: :black }
     @grid = []
     @all_pieces = { white: [], black: [] }
     @last_move = [[], [], nil]
