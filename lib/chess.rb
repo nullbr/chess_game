@@ -110,21 +110,10 @@ class Chess < Board
   end
 
   def blocks_in_path(initial_pos, final_pos)
-    y = if (final_pos[0] - initial_pos[0]).zero?
-          0
-        elsif (final_pos[0] - initial_pos[0]).negative?
-          -1
-        else
-          1
-        end
-
-    x = if (final_pos[1] - initial_pos[1]).zero?
-          0
-        elsif (final_pos[1] - initial_pos[1]).negative?
-          -1
-        else
-          1
-        end
+    y = final_pos[0] - initial_pos[0]
+    y /= y.abs unless y.zero?
+    x = final_pos[1] - initial_pos[1]
+    x /= x.abs unless y.zero?
 
     moves = []
     until initial_pos == final_pos
