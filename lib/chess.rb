@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'board'
-require 'pry'
 
 # main driver class frot the chess game
 class Chess < Board
@@ -25,8 +24,6 @@ class Chess < Board
     return false if input.nil?
 
     piece = get_piece(input[0], input[1], input[2], input[3], input[5]) # (x_dest, y_dest, notation, capturing, origin)
-
-    # binding.pry if fresh_input == 'fxe7'
 
     return false if piece.nil?
 
@@ -64,7 +61,6 @@ class Chess < Board
   # if check is true, will check if capture of the king can be blocked
   # by defending pieces
   def checkmate?
-    # binding.pry if @last_move[1] == [3, 3]
     check? if @check == true
 
     if @captured.any? { |piece| piece.instance_of?(King) }
@@ -189,8 +185,6 @@ class Chess < Board
   def get_piece(x_dest, y_dest, notation, capturing, origin)
     get = nil
     @all_pieces[@current_player[:pieces]].each do |piece|
-      # binding.pry if [x_dest, y_dest, notation, capturing, origin] == [4, 1, "Q", false, nil] && piece.instance_of?(Queen)
-
       next unless piece.notation == notation &&
                   piece.moves(@grid).include?([y_dest, x_dest, capturing]) &&
                   (origin.nil? || piece.position.include?(origin))

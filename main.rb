@@ -2,7 +2,6 @@ require_relative '.bundle/ruby/2.5.0/gems/ruby_figlet-0.6.1/lib/ruby_figlet'
 require_relative 'lib/chess'
 require_relative 'lib/process_data'
 require_relative 'lib/ai'
-require 'pry'
 
 using RubyFiglet # For String.new(...).art / .art! Moneky Patches
 include ProcessData
