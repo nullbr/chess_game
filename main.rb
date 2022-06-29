@@ -80,14 +80,10 @@ while game.checkmate? == false
   if game.current_player[:name] == 'Machine'
     input = player2.random_move(game.all_pieces, game.grid)
     print input
-    sleep 3
+    sleep 2
   else
     input = get_input(lang)
-  end
-
-  
-  # binding.pry
-  
+  end  
 
   game.move_piece(input)
   save_game(game, filename)
