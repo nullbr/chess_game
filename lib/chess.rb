@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'board'
+require 'pry'
 
 # main driver class frot the chess game
 class Chess < Board
@@ -186,7 +187,8 @@ class Chess < Board
     end
     capture = @grid[y_dest][x_dest]
     unless capture.nil?
-      @all_pieces[@current_player[:pieces]].delete(capture)
+      opponents_type = @current_player[:pieces] == :white ? :black : :white
+      @all_pieces[opponents_type].delete(capture)
       @captured << capture
       # @captured << "#{capture.type} #{capture.class}"
     end

@@ -17,11 +17,9 @@ class Pawn < Pieces
 
   def moves(grid)
     moves = []
-    
     possible_directions.each do |direction|
       y = @position[0] + direction[0]
       x = @position[1] + direction[1]
-      
       break unless y.between?(0, 7) && x.between?(0, 7) && grid[y][x].nil?
 
       moves << [y, x, false] # add legal move to moves, 0 represent not capturing
@@ -29,7 +27,7 @@ class Pawn < Pieces
     diagonal.each do |direction|
       y = @position[0] + direction[0]
       x = @position[1] + direction[1]
-      next unless y.between?(0, 7) && x.between?(0, 7) && !grid[y][x].nil?
+      next unless y.between?(0, 7) && x.between?(0, 7) && !grid[y][x].nil? && grid[y][x].type != type
 
       moves << [y, x, true] # add legal move to moves, true represent capturing
     end
