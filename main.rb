@@ -81,7 +81,7 @@ while game.checkmate? == false
   
   if game.current_player[:name].instance_of?(AI)
     print 'Machine move: '
-    input = game.machine.choose_move(game.all_pieces, game.grid)
+    input = game.machine.move(game.all_pieces, game.grid)
     print input
     sleep 2
   else

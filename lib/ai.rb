@@ -16,6 +16,7 @@ class AI
       move = select_random
     elsif @difficulty == 1
       move = select_capturing(:black)
+      move = select_random if move.empty?
     end
 
     translate(move) unless move.nil?
@@ -34,7 +35,6 @@ class AI
     possible_moves
   end
 
-  # grabs x
   def translate(move)
     y = move[0] + 1
     x = (move[1] + 97).chr
@@ -59,7 +59,7 @@ class AI
     can_capture = capturing(moves)
 
     king_pos = capture_king(moves)
-    king_pos.empty? ? can_capture.sample : king_pos
+    king_pos.empty? ? can_capture : king_pos
   end
 
   # return kings position if it is available, return empty otherwise
