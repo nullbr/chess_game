@@ -67,10 +67,10 @@ class Chess < Board
       true
     elsif @check
       # path of last piece to the opponet's king
-      king = get_rival_king(@last_move[2])
-      initial_pos = @last_move[1]
+      last_piece = @last_move[2]
+      king = get_rival_king(last_piece)
       final_pos = king.position
-      path = @last_move[2].instance_of?(Knight) ? initial_pos : blocks_in_path(initial_pos, final_pos)
+      path = last_piece.instance_of?(Knight) ? last_piece.position : last_piece.blocks_in_path(final_pos)
 
       king_defend!(king, path) && defend_king!(king, path)
     else
@@ -103,20 +103,6 @@ class Chess < Board
       end
     end
     defend
-  end
-
-  def blocks_in_path(initial_pos, final_pos)
-    y = final_pos[0] - initial_pos[0]
-    y /= y.abs unless y.zero?
-    x = final_pos[1] - initial_pos[1]
-    x /= x.abs unless x.zero?
-
-    moves = []
-    until initial_pos == final_pos
-      moves << initial_pos
-      initial_pos = [initial_pos[0] + y, initial_pos[1] + x]
-    end
-    moves
   end
 
   def get_rival_king(last_piece)

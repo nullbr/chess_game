@@ -12,11 +12,10 @@ class AI
   def move(pieces, grid)
     @pieces = pieces
     @grid = grid
-    @moves = possible_moves
     if @difficulty.zero?
       move = select_random
     elsif @difficulty == 1
-      move = select_capturing
+      move = select_capturing(:black)
     end
 
     translate(move) unless move.nil?
@@ -25,11 +24,11 @@ class AI
   private
 
   # returns array of all moves pieces can make
-  def possible_moves(type = :black)
+  def possible_moves(color = :black)
     possible_moves = []
-    @pieces[type].each do |piece|
+    @pieces[color].each do |piece|
       moves = piece.moves(@grid)
-      possible_moves += moves.map { |move| move + [piece.notation] + [piece.position[1]] } unless moves.empty?
+      possible_moves += moves.map { |move| move + [piece] } unless moves.empty?
     end
 
     possible_moves
@@ -40,37 +39,38 @@ class AI
     y = move[0] + 1
     x = (move[1] + 97).chr
     capturing = move[2] ? 'x' : ''
-    if move[3] == 'P'
+    if move[3].notation == 'P'
       notation = x_origin = ''
     else
-      notation = move[3]
-      x_origin = (move[4] + 97).chr
+      notation = move[3].notation
+      x_origin = (move[3].position[1] + 97).chr
     end
     "#{notation}#{x_origin}#{capturing}#{x}#{y}"
   end
 
   # return a sample move
   def select_random
-    @moves.sample
+    possible_moves(:black).sample
   end
 
   # choose move, select one with capturing if available
-  def select_capturing
-    can_capture = capturing
+  def select_capturing(color)
+    moves = possible_moves(color)
+    can_capture = capturing(moves)
     return select_random if can_capture.empty?
 
-    king_pos = capture_king
+    king_pos = capture_king(moves)
     king_pos.empty? ? can_capture.sample : king_pos
   end
   
   # return kings position if it is available, return empty otherwise
-  def capture_king
-    @moves.each { |move| return move if @grid[move[0]][move[1]].instance_of?(King) }
+  def capture_king(moves)
+    moves.each { |move| return move if @grid[move[0]][move[1]].instance_of?(King) }
   end
   
   # return all pieces that can capture
-  def capturing
-    @moves.select { |move| move[2] == true }
+  def capturing(moves)
+    moves.select { |move| move[2] == true }
   end
 
   def select_defense

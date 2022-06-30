@@ -30,6 +30,21 @@ module Path
     path.reverse
   end
 
+  def blocks_in_path(final_pos)
+    initial_pos = self.position
+    y = final_pos[0] - initial_pos[0]
+    y /= y.abs unless y.zero?
+    x = final_pos[1] - initial_pos[1]
+    x /= x.abs unless x.zero?
+
+    moves = []
+    until initial_pos == final_pos
+      moves << initial_pos
+      initial_pos = [initial_pos[0] + y, initial_pos[1] + x]
+    end
+    moves
+  end
+
   private
 
   def create_children(parent, grid)
