@@ -24,8 +24,6 @@ RSpec.describe Bishop do
       game.move_piece('a3')
       game.move_piece('Qh4')
       game.move_piece('b3')
-      puts ''
-      game.to_s
       expect(ai.move(game.all_pieces, game.grid)).to eq('Qhxe1')
     end
 
@@ -38,8 +36,6 @@ RSpec.describe Bishop do
       game.move_piece('e3')
       game.move_piece('a7')
       game.move_piece('Qh5')
-      puts ''
-      game.to_s
       #expect(ai.move(game.all_pieces, game.grid)).to eq('g6')
     end
   end

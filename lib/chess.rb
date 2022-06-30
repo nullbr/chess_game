@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'board'
+require 'pry'
 
 # main driver class frot the chess game
 class Chess < Board
@@ -49,30 +50,34 @@ class Chess < Board
 
   # checks if last piece can capture the opponent's king
   def check?
+    return @check = true if @captured.any? { |piece| piece.instance_of?(King) }
+    
     last_piece = @last_move[2]
-    return @check = false if last_piece.nil?
-
-    king = get_rival_king(last_piece)
-    capturing_moves = last_piece.moves(@grid).select { |move| move[2] == true }
-    position = king.position[0..1] + [true]
-    @check = capturing_moves.include?(position)
+    if last_piece.nil?
+      @check = false
+    else
+      king = get_rival_king(last_piece)
+      capturing_moves = last_piece.moves(@grid).select { |move| move[2] == true }
+      position = king.position[0..1] + [true]
+      @check = capturing_moves.include?(position)
+    end
+    @check
   end
 
   # if check is true, will check if capture of the king can be blocked
   # by defending pieces
   def checkmate?
     check? if @check == true
+    return false unless @check 
+    
+    #binding.pry if @all_moves[-1].include?('Nc2')
 
     if @captured.any? { |piece| piece.instance_of?(King) }
       true
     elsif @check
-      # path of last piece to the opponet's king
-      last_piece = @last_move[2]
-      king = get_rival_king(last_piece)
-      final_pos = king.position
-      path = last_piece.instance_of?(Knight) ? last_piece.position : last_piece.blocks_in_path(final_pos)
-
-      king_defend!(king, path) && defend_king!(king, path)
+      king = get_rival_king(@last_move[2])
+      type = king.type
+      @all_pieces[type].all? { |piece| piece.defend(@last_move[2], king, @grid).empty? }
     else
       false
     end

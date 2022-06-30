@@ -50,6 +50,8 @@ RSpec.describe Chess do
         game3 = Chess.new('bruno', 'giu')
         moves = %w[e4 f5 exf5 e6 f6 Ke7 fxe7]
         moves.each { |move| game3.move_piece(move) }
+        puts 'hellooooo'
+        game3.to_s
         expect(game3.checkmate?).to be_truthy # moves knight into check and causes an infinite loop
       end
 

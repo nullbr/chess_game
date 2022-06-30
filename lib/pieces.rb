@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'path'
+require 'pry'
 
 class Pieces
   include Path
@@ -42,5 +43,20 @@ class Pieces
       end
     end
     moves
+  end
+
+  # return true if piece can defend itself
+  def defend(attacker, defending, grid)
+    moves = self.moves(grid)
+    path = blocks_in_path(attacker, defending)
+    # binding.pry if attacker.instance_of?(Knight)
+    if instance_of?(King)
+      defending_moves = moves.reject { |move| path.include?(move[0..1]) }
+      moves.each { |move| defending_moves << move if move[0..1] == attacker.position }
+    else
+      defending_moves = moves.select { |move| path.include?(move[0..1]) }
+    end
+
+    defending_moves.map { |move| move + [self] }
   end
 end

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'pry'
+
 # Find possible path to destination ...
 module Path
   # Takes initial position and final position, as separate arrays, on the board position on board
@@ -9,7 +11,7 @@ module Path
     current_piece = self
     initial_pos = current_piece.position
     queue = [current_piece]
- 
+
     until !current_piece || current_piece.position == final_pos
       current_piece = create_children(current_piece, grid)
       current_piece.children.each { |child| queue.push(child) }
@@ -30,13 +32,16 @@ module Path
     path.reverse
   end
 
-  def blocks_in_path(final_pos)
-    initial_pos = self.position
+  # path from attacker's position (initial_pos) to king (final_pos), excludes king's position
+  def blocks_in_path(attacker, defending)
+    initial_pos = attacker.position
+    return initial_pos if attacker.instance_of?(Knight)
+    
+    final_pos = defending.position
     y = final_pos[0] - initial_pos[0]
     y /= y.abs unless y.zero?
     x = final_pos[1] - initial_pos[1]
     x /= x.abs unless x.zero?
-
     moves = []
     until initial_pos == final_pos
       moves << initial_pos
