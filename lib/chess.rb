@@ -51,7 +51,7 @@ class Chess < Board
   # checks if last piece can capture the opponent's king
   def check?
     return @check = true if @captured.any? { |piece| piece.instance_of?(King) }
-    
+
     last_piece = @last_move[2]
     if last_piece.nil?
       @check = false
@@ -68,9 +68,7 @@ class Chess < Board
   # by defending pieces
   def checkmate?
     check? if @check == true
-    return false unless @check 
-    
-    #binding.pry if @all_moves[-1].include?('Nc2')
+    return false unless @check
 
     if @captured.any? { |piece| piece.instance_of?(King) }
       true
@@ -88,27 +86,6 @@ class Chess < Board
   end
 
   private
-
-  # checks if king can defend itself
-  def king_defend!(king, path)
-    moves = king.moves(@grid).map { |move| move[0..1] }
-    moves.all? { |move| path.include?(move) }
-  end
-
-  # checks if any pieces can defend the king
-  def defend_king!(king, path)
-    defend = true
-    @all_pieces[king.type].each do |piece|
-      next if piece == king
-
-      moves = piece.moves(@grid).map { |move| move[0..1] }
-      if moves.any? { |move| path.include?(move) }
-        defend = false
-        break
-      end
-    end
-    defend
-  end
 
   def get_rival_king(last_piece)
     type = last_piece.type == :white ? :black : :white
