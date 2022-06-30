@@ -45,7 +45,7 @@ class Pieces
     moves
   end
 
-  # return true if piece can defend itself
+  # return array with defending moves if piece can defend itself
   def defend(attacker, defending, grid)
     moves = self.moves(grid)
     path = blocks_in_path(attacker, defending)

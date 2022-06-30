@@ -57,28 +57,25 @@ class AI
   def select_capturing(color)
     moves = possible_moves(color)
     can_capture = capturing(moves)
-    return select_random if can_capture.empty?
 
     king_pos = capture_king(moves)
     king_pos.empty? ? can_capture.sample : king_pos
   end
-  
+
   # return kings position if it is available, return empty otherwise
   def capture_king(moves)
     moves.each { |move| return move if @grid[move[0]][move[1]].instance_of?(King) }
   end
-  
+
   # return all pieces that can capture
   def capturing(moves)
     moves.select { |move| move[2] == true }
   end
 
+  # return a defensive move
   def select_defense
-    possible_capture = []
-    
-    importance = { 'P': 0, 'B': 1, 'N': 2, 'R': 3, 'Q': 4, 'K': 5 }
-    # @pieces[:black].each { |piece| current_posistions << piece.position + [importance[piece.notation]] }
-    possible_moves(:white).each { || }
-
+    # enemy_capture = select_capturing(:white)
+    # return if enemy_capture.empty?
+    # importance = { 'P': 0, 'B': 1, 'N': 2, 'R': 3, 'Q': 4, 'K': 5 }
   end
 end
