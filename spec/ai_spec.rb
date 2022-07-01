@@ -1,8 +1,8 @@
 require './lib/chess'
 require './lib/ai'
 
-RSpec.describe Bishop do
-  describe '#random_move' do
+RSpec.describe AI do
+  describe '#move' do
     chess = Chess.new('bruno')
     it 'makes a random, legal move' do
       ai = AI.new(0)
@@ -32,11 +32,25 @@ RSpec.describe Bishop do
       game = Chess.new('bruno', ai)
       game.move_piece('e4')
       game.move_piece('f6')
-      game.move_piece('a6')
       game.move_piece('e3')
       game.move_piece('a7')
       game.move_piece('Qh5')
-      #expect(ai.move(game.all_pieces, game.grid)).to eq('g6')
+      puts ''
+      game.to_s
+      expect(ai.move(game.all_pieces, game.grid)).to eq('g6')
+    end
+
+    it 'king defends itself' do
+      ai = AI.new(2)
+      game = Chess.new('bruno', ai)
+      game.move_piece('e4')
+      game.move_piece('f6')
+      game.move_piece('a3')
+      game.move_piece('e6')
+      game.move_piece('Qh5')
+      puts ''
+      game.to_s
+      expect(ai.move(game.all_pieces, game.grid)).to eq('Kee7')
     end
   end
 end
