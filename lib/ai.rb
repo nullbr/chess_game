@@ -16,7 +16,7 @@ class AI
       move = select_random
     elsif @difficulty == 1
       move = select_capturing(:black)
-      move = select_random if move.empty?
+      move = move.empty? ? select_random : move.sample
     end
 
     translate(move) unless move.nil?
@@ -57,14 +57,14 @@ class AI
   def select_capturing(color)
     moves = possible_moves(color)
     can_capture = capturing(moves)
-
+    
     king_pos = capture_king(moves)
     king_pos.empty? ? can_capture : king_pos
   end
 
   # return kings position if it is available, return empty otherwise
   def capture_king(moves)
-    moves.each { |move| return move if @grid[move[0]][move[1]].instance_of?(King) }
+    moves.select { |move| @grid[move[0]][move[1]].instance_of?(King) }
   end
 
   # return all pieces that can capture
