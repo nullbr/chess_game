@@ -13,7 +13,7 @@ class Pawn < Pieces
     @first_move = true
     @en_passant = false
     @notation = 'P'
-    @rank = 5
+    @rank = 0
   end
 
   def moves(grid)

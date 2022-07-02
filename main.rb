@@ -30,8 +30,8 @@ if choice.zero?
   game_type = get_input(lang, [0, 1])
 
   if game_type == 1
-    puts lang.zero? ? "Difficulty\n0: Super Easy\n1: Easy" : "\nDificuldade\n0: Super Fácil\n1: Fácil"
-    difficulty = get_input(lang, [0, 1])
+    puts lang.zero? ? "Difficulty\n0: Super Easy\n1: Easy\n2: Medium" : "\nDificuldade\n0: Super Fácil\n1: Fácil\n2: Médio"
+    difficulty = get_input(lang, [0, 1, 2])
   end
 
   puts lang.zero? ? "\nName of Player 1" : "\nNome do jogador 1"

@@ -48,9 +48,10 @@ RSpec.describe AI do
       game.move_piece('a3')
       game.move_piece('e6')
       game.move_piece('Qh5')
+      expect(ai.move(game.all_pieces, game.grid)).to eq('Kee7')
+      game.move_piece(ai.move(game.all_pieces, game.grid))
       puts ''
       game.to_s
-      expect(ai.move(game.all_pieces, game.grid)).to eq('Kee7')
     end
   end
 end

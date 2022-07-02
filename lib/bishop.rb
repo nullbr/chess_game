@@ -8,7 +8,7 @@ class Bishop < Pieces
     super(type, position)
     @unicode = @type == :black ? '♝' : '♗'
     @notation = 'B'
-    @rank = 4
+    @rank = 1
   end
 
   def moves(grid)

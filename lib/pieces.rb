@@ -47,6 +47,8 @@ class Pieces
   # return array with defending moves if piece can defend itself
   # defending move ex: [y(defend), x(defend), capturing, piece_used_to_defend]
   def defend(attacker, defending, grid)
+    return [] if rank > defending.rank
+
     moves = self.moves(grid)
     path = blocks_in_path(attacker, defending)
     if instance_of?(King) && defending.instance_of?(King)

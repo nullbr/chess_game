@@ -18,8 +18,9 @@ class AI
       move = select_capturing(:black)
       move = move.empty? ? select_random : move.sample
     elsif @difficulty == 2
-      p select_defense
-      move = select_defense.sample
+      move = select_defense
+      move = select_capturing(:black).sample if move.nil? || move.empty?
+      move = select_random if move.nil? || move.empty?
     end
 
     translate(move) unless move.nil?
@@ -76,16 +77,34 @@ class AI
   end
 
   def select_defense
-    enemy_capture = select_capturing(:white)
-    return [] if enemy_capture.empty?
+    defend_attack = most_important
+    return [] if defend_attack.nil?
 
-    defending_piece = enemy_capture.map { |cap| @grid[cap[0]][cap[1]] }[0]
-    attacker = enemy_capture[0][3]
-    defensive_moves(attacker, defending_piece)
+    moves = defensive_moves(defend_attack[0], defend_attack[1])
+    moves.empty? ? [] : best_move(moves, defend_attack)
+  end
+
+  # returns the best move
+  # 1 -> Capture attacker
+  # 2 -> Move out of the way
+  # 3 -> Sacrifice piece
+  def best_move(moves, pieces)
+    best = []
+    moves.each do |move|
+      return move if move[2] # capturing is true
+
+      if move[3] != pieces[0]
+        # sacrifice: piece used to defend is different than defending piece
+        best << move
+      else
+        best = [move] + best
+      end
+    end
+    best[0]
   end
 
   # return array with possible defensive moves
-  def defensive_moves(attacker, defending_piece)
+  def defensive_moves(defending_piece, attacker)
     defending_moves = []
     @pieces[:black].each do |piece|
       moves = piece.defend(attacker, defending_piece, @grid)
@@ -95,7 +114,16 @@ class AI
     defending_moves.flatten(1)
   end
 
-  def most_important(pieces)
+  def most_important
+    enemy_capture = select_capturing(:white)
+    return if enemy_capture.empty?
 
+    defending_pieces = {}
+    enemy_capture.map do |cap|
+      piece = @grid[cap[0]][cap[1]]
+      defending_pieces[piece.rank] = [piece] + [cap[3]] # defending + attacking piece
+    end
+
+    defending_pieces.max[-1]
   end
 end

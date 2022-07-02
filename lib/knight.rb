@@ -8,7 +8,7 @@ class Knight < Pieces
     super(type, position)
     @unicode = type == :black ? '♞' : '♘'
     @notation = 'N'
-    @rank = 3
+    @rank = 2
   end
 
   private
