@@ -26,11 +26,11 @@ end
 
 # Start a new game
 if choice.zero?
-  puts lang.zero? ? "\n0: Human vs Human\n1: Human vs AI" : "\n0: Humano vs Humano\n1: Humano vs AI"
+  puts lang.zero? ? "\n0: Human vs Human\n1: Human vs AI" : "\n0: Humano vs Humano\n1: Humano vs Maquina"
   game_type = get_input(lang, [0, 1])
 
   if game_type == 1
-    puts lang.zero? ? "Difficulty\n0: Super Easy\n1: Easy\n2: Medium" : "\nDificuldade\n0: Super Fácil\n1: Fácil\n2: Médio"
+    puts lang.zero? ? "\nDifficulty\n0: Super Easy\n1: Easy\n2: Medium" : "\nDificuldade\n0: Super Fácil\n1: Fácil\n2: Médio"
     difficulty = get_input(lang, [0, 1, 2])
   end
 
@@ -99,4 +99,8 @@ File.delete(filename) if File.exist?(filename)
 
 game.to_s
 puts 'Checkmate!'
-puts "#{game.next_player[:name]} won!"
+if game.next_player[:name].instance_of?(AI)
+  puts lang.zero? ? "The Machine Won!" : "a Maquina Ganhou!"
+else
+  puts lang.zero? ? "#{game.next_player[:name]} Won!" : "#{game.next_player[:name]} Ganhou!"
+end
