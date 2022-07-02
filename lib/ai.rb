@@ -18,6 +18,7 @@ class AI
       move = select_capturing(:black)
       move = move.empty? ? select_random : move.sample
     elsif @difficulty == 2
+      p select_defense
       move = select_defense.sample
     end
 
@@ -59,7 +60,7 @@ class AI
   def select_capturing(color)
     moves = possible_moves(color)
     can_capture = capturing(moves)
-    
+
     king_pos = capture_king(moves)
     king_pos.empty? ? can_capture : king_pos
   end
@@ -74,6 +75,15 @@ class AI
     moves.select { |move| move[2] == true }
   end
 
+  def select_defense
+    enemy_capture = select_capturing(:white)
+    return [] if enemy_capture.empty?
+
+    defending_piece = enemy_capture.map { |cap| @grid[cap[0]][cap[1]] }[0]
+    attacker = enemy_capture[0][3]
+    defensive_moves(attacker, defending_piece)
+  end
+
   # return array with possible defensive moves
   def defensive_moves(attacker, defending_piece)
     defending_moves = []
@@ -84,14 +94,14 @@ class AI
 
     defending_moves.flatten(1)
   end
-  
-  def select_defense
-    # importance = { 'P': 0, 'B': 1, 'N': 2, 'R': 3, 'Q': 4, 'K': 5 }
-    enemy_capture = select_capturing(:white)
-    return [] if enemy_capture.empty?
 
-    defending_piece = enemy_capture.map { |cap| @grid[cap[0]][cap[1]] }[0]
-    attacker = enemy_capture[0][3]
-    defensive_moves(attacker, defending_piece)
+  def least_important(pieces)
+    return if pieces.empty?
+
+    importance_rating = %w[K Q R N B P]
+
+    pieces.each do |piece|
+      
+    end
   end
 end
