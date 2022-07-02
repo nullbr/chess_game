@@ -95,13 +95,7 @@ class AI
     defending_moves.flatten(1)
   end
 
-  def least_important(pieces)
-    return if pieces.empty?
+  def most_important(pieces)
 
-    importance_rating = %w[K Q R N B P]
-
-    pieces.each do |piece|
-      
-    end
   end
 end

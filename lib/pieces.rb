@@ -6,7 +6,7 @@ require 'pry'
 class Pieces
   include Path
 
-  attr_reader :unicode, :type
+  attr_reader :unicode, :type, :rank
   attr_accessor :notation, :children
 
   def initialize(type, position)
