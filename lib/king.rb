@@ -9,6 +9,7 @@ class King < Pieces
     super(type, position)
     @unicode = type == :black ? '♚' : '♔'
     @notation = 'K'
+    @rank = 5
   end
 
   private

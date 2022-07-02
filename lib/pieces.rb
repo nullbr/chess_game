@@ -12,7 +12,6 @@ class Pieces
   def initialize(type, position)
     @type = type
     @position = position
-    @notation = nil
     @parent = nil
     @children = []
   end

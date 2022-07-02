@@ -8,6 +8,7 @@ class Queen < Pieces
     super(type, position)
     @unicode = type == :black ? '♛' : '♕'
     @notation = 'Q'
+    @rank = 4
   end
 
   def moves(grid)

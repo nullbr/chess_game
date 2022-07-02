@@ -8,6 +8,7 @@ class Rook < Pieces
     super(type, position)
     @unicode =  @type == :black ? '♜' : '♖'
     @notation = 'R'
+    @rank = 3
   end
 
   def moves(grid)
