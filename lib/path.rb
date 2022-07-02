@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry'
-
 # Find possible path to destination ...
 module Path
   # Takes initial position and final position, as separate arrays, on the board position on board
