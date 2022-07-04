@@ -4,8 +4,8 @@ A classic Chess game, written in Ruby. The final TOP project in the ruby curricu
 
 <div style="display: inline_block">
 
-  <a href="https://rubyonrails.org" target="_blank"><img alt="Ruby" width="31%" src="https://user-images.githubusercontent.com/94543524/176027193-9a1a208f-87b0-4675-8bbb-5b7100d6cabb.jpg"></a>
-  <a href="https://rubyonrails.org" target="_blank"><img alt="Ruby" width="65%" src="https://user-images.githubusercontent.com/94543524/176027212-5d367530-d76e-4120-8325-1cf1fc20ab3e.jpg"></a>
+  <img alt="Ruby" width="31%" src="https://user-images.githubusercontent.com/94543524/176027193-9a1a208f-87b0-4675-8bbb-5b7100d6cabb.jpg">
+  <img alt="Ruby" width="65%" src="https://user-images.githubusercontent.com/94543524/176027212-5d367530-d76e-4120-8325-1cf1fc20ab3e.jpg">
   
 </div>
 
