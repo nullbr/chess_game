@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry'
-
 # Artificial Inteligence
 class AI
   attr_accessor :name

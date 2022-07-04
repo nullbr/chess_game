@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'board'
-require 'pry'
 
 # main driver class frot the chess game
 class Chess < Board

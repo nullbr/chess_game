@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'path'
-require 'pry'
 
 class Pieces
   include Path
