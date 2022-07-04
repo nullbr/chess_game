@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'pry'
+
 # Artificial Inteligence
 class AI
   attr_accessor :name
@@ -81,7 +83,8 @@ class AI
     return [] if defend_attack.nil?
 
     moves = defensive_moves(defend_attack[0], defend_attack[1])
-    moves.empty? ? [] : best_move(moves, defend_attack)
+
+    moves.empty? ? moves : best_move(moves, defend_attack)
   end
 
   # returns the best move
@@ -119,11 +122,10 @@ class AI
     return if enemy_capture.empty?
 
     defending_pieces = {}
-    enemy_capture.map do |cap|
+    enemy_capture.each do |cap|
       piece = @grid[cap[0]][cap[1]]
       defending_pieces[piece.rank] = [piece] + [cap[3]] # defending + attacking piece
     end
-
-    defending_pieces.max[-1]
+    defending_pieces.max[1]
   end
 end

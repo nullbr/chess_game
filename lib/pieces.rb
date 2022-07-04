@@ -50,7 +50,7 @@ class Pieces
 
     moves = self.moves(grid)
     path = blocks_in_path(attacker, defending)
-    if instance_of?(King) && defending.instance_of?(King)
+    if defending == self
       defending_moves = moves.reject { |move| path.include?(move[0..1]) }
       moves.each { |move| defending_moves << move if move[0..1] == attacker.position }
     else
