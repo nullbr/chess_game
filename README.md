@@ -1,6 +1,6 @@
 ## [Chess](https://replit.com/@nullbr/chessgame)
 
-A classic Chess game, written in Ruby. The final TOP project in the ruby curriculum. Play it at [Replit](https://replit.com/@nullbr/chessgame)!
+A classic Chess game, written in Ruby. It was developed applying Test Driven Development techniques, automating tests with RSpec. This was the final project from TheOddinProject Ruby programming curriculum. The game can be played as multiplayer or against an artificial intelligence (under development). Play it at [Replit](https://replit.com/@nullbr/chessgame)!
 
 <div style="display: inline_block">
 
