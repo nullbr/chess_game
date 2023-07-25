@@ -2,7 +2,7 @@
 
 [![wakatime](https://wakatime.com/badge/user/9450441a-ff7b-4805-b841-897d35ef3820/project/1fb3568a-af51-42c5-abbe-ea624d96a793.svg)](https://wakatime.com/badge/user/9450441a-ff7b-4805-b841-897d35ef3820/project/1fb3568a-af51-42c5-abbe-ea624d96a793)
 
-A classic Chess game, written in Ruby. It was developed applying Test Driven Development techniques, automating tests with RSpec. This was the final project from TheOddinProject Ruby programming curriculum. The game can be played as multiplayer or against an artificial intelligence (under development). Play it at [Replit](https://replit.com/@nullbr/chessgame)!
+A classic Chess game, written in Ruby. It was developed applying Test Driven Development techniques, automating tests with RSpec. This was the final project from TheOddinProject Ruby programming curriculum. The game can be played as multiplayer or against a bot. Play it at [Replit](https://replit.com/@nullbr/chessgame)!
 
 <div style="display: inline_block">
 
